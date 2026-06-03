@@ -1,19 +1,36 @@
-# Welcome to MkDocs
+# Tervetuloa kurssille
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+!!! warning
 
-## Commands
+    Tämä materiaali on kehitteillä. Uusi toteutus käynnistyy syksyllä 2026.
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
+Oppimateriaali on tarkoitettu Kajaanin Ammattikorkeakoulun kolmannen vuoden IT-alan opiskelijoille. Kurssin edeltyvyysehtona on Syväoppiminen I -kurssin läpäisy.
 
-## Project layout
+## Arviointi
 
-    mkdocs.yml        # The configuration file.
-    docs/
-        index.md      # The documentation homepage.
-        extensions.md # Extensions How-To
-        .pages        # Awesome Pages plugin configuration
-        ...           # Other markdown pages, images and other files.
+Kurssi koostuu teemaviikoista, joissa kussakin voi olla yksi tai enemmän tehtäviä. Kukin tehtävä kuuluu palauttaa annetussa muodossa Reppu-järjestelmään (Moodle). Tehtävät ovat kirjoitushetkellä lähes kaikki videotehtäviä, ja ne arvostellaan kukin [Arviointityökalu](https://arviointi.munpaas.com/):n **Videoitu demo**-kriteeristöllä. Kurssin loppuarvosana on näiden tehtävien keskiarvo, ja se lasketaan Reppu-järjestelmässä automaattisesti. Poikkeus videotehtäviin on viikon 9 aihe, Etiikka, jossa palautat kirjallisen tehtävän, joka arvioidaan Reppuun palautetun tekstin perusteella. Tämä arvioidaan Hyväksytty/Hylätty -kriteeristöllä.
+
+Alla listamuodossa huomioitavia asioita:
+
+* Kurssin kaikki tehtävät ovat pakollisia.
+* Myöhässä palautetun tehtävän arvosana laskee siten, että se rajoitetaan maksimiin, joka on...
+    * Palautus samana lukuvuonna: 3
+    * Palautus seuraavan lukuvuoden puolella: 1
+
+## Teemaviikot
+
+Kurssi on jaettu teemaviikkoihin, jotka käsittelevät erilaisia aihealueita. Jokaisella teemaviikolla on omat tehtävänsä, jotka liittyvät kyseiseen aiheeseen. Kunkin teemaviikon tehtävillä on oma palautuspäivänsä, joka ilmoitetaan Reppu-järjestelmässä. Tehtävät tulee palauttaa ennen kyseistä päivämäärää, jotta ne arvioidaan täysimääräisesti.
+
+Viikot ovat:
+
+| Viikko | Tehtävä | Otsikko                                                          | Kuvaus                                                                                                                    |
+| -----: | ------- | ---------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
+|      1 | Video   | [Configuration-driven training](teemaviikot/01_konfiguraatio.md) | Tutustutaan konfiguraatiovetoiseen mallin koulutukseen ja Flower Model -esimerkkiin paikallisesti.                        |
+|      2 | Video   | [CSC Roihu](teemaviikot/02_roihu.md)                             | Perehdytään CSC:n Roihu-supertietokoneeseen ja sen käyttöympäristöön.                                                     |
+|      3 | Video   | [Slurm](teemaviikot/03_slurm.md)                                 | Opitaan ajamaan ensimmäinen koneoppimismalli Slurm-jonojärjestelmällä Roihulla.                                           |
+|      4 | Video   | [Flower Model @ Roihu](teemaviikot/04_flower_at_roihu.md)        | Siirretään Flower Model -koulutus Roihulle ja rakennetaan hybridityönkulku lokaalin kehityksen ja etäkoulutuksen välille. |
+|      5 | Video   | [Experiment Tracking](teemaviikot/05_tracking.md)                | Otetaan käyttöön MLflow ja rakennetaan järjestelmä kokeiden seurantaan lokaalisti ja Roihulla.                            |
+|      6 | Video   | [Suuret kielimallit](teemaviikot/06_llm.md)                      | Kertausosio suurista kielimalleista aiemman kurssin pohjalta.                                                             |
+|      7 | Video   | [Parallelismi](teemaviikot/07_parallelismi.md)                   | Tutustutaan hajautetun oppimisen keskeisiin parallelismitekniikoihin käytännön esimerkkien avulla.                        |
+|      8 | Video   | [Kielimallin hienosäätö](teemaviikot/08_llm_ft.md)               | Harjoitellaan pienten kielimallien hienosäätöä menetelmillä kuten LoRA.                                                   |
+|      9 | Essee   | [Etiikka](teemaviikot/09_etiikka.md)                             | Pohditaan tekoälyn etiikkaa ja sen vaikutuksia yhteiskuntaan.                                                             |
