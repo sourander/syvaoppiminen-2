@@ -8,6 +8,8 @@
 
     Ja lisäksi vielä HF:n community article [Fine-Tuning Your First Large Language Model (LLM) with PyTorch and Hugging Face](https://huggingface.co/blog/dvgodoy/fine-tuning-llm-hugging-face), jossa tuunataan Phi-3 Mini 4K puhumaan Yoda-englantia.
 
+    Kaiken kukkuraksi me haluaisimme, että tämä loggaa MLflow:iin, eli seuraten MLflow:n dokumentaatiota: [Fine-Tuning Open-Source LLM using QLoRA with MLflow and PEFT](https://mlflow.org/docs/latest/ml/deep-learning/transformers/tutorials/fine-tuning/transformers-peft/)
+
 ## Videolla esitettävä
 
 1. TODO
