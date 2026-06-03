@@ -21,6 +21,8 @@ Tällä kurssilla käytetään CSC:n ympäristöä ja erityisesti Roihu-supertie
 
 Lisäksi tutustutaan Roihun myötä tulleisiin muutoksiin, joista kenties tärkein on `ProjData`-alue. Entisten `Home`, `ProjAppl` ja `Scratch` kylkeen on tullut tuo uutukainen, joka on tarkoitettu **datasettien jakamiseen projektien kesken**. Tällä kurssilla kullakin opiskelijalla on oma student project, mutta olisi tilan haaskausta ladata `n_oppilasta` kertaa Flower Dataset. Siispä opettaja on luonut "dataset project":n MyCSC-sivulla. Sinun ei tarvitse omaa luoda, mutta sinun tulee tietää, mistä se luotaisiin jos tarvitsisit sitä.
 
+SSH:n suhteen uutta on vaatimus, että sinulla on signed SSH key, joka on rekisteröity MyCSC:hen. Dokumentation previkka löytyy: https://csc-guide-preview.2.rahtiapp.fi/origin/roihu/computing/connecting/ssh-keys/#signing-public-key
+
 Tutustutaan myös SSH key forwarding -käsitteeseen ja pintapuolisesti siihen, kuinka voimme käyttää Allasta. Opettaja lataa saman datasetin myös Altaaseen, jotta voimme kurssin aikana harjoitella kummankin käyttöä. Koulutuksen aikana data ladataan juuri sille GPU nodelle, joka sinulle arpoutuu: koulutuksen aikana JPG:tä ei siis ladata verkon yli vaan käytetään paikallista, noden omaan väliaikaiseen käyttöön tarkoitettua nVME-levyä.
 
 ## Videolla esitettävä
