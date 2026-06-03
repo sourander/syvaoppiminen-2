@@ -1,0 +1,14 @@
+[project]
+authors = [
+    {name = "Jani Sourander", email = "sourander@gmail.com"},
+]
+requires-python = "<4.0,>=3.12"
+dependencies = [
+    "mkdocs-material",
+    "mkdocs-awesome-nav",
+]
+name = "doc-skeleton"
+version = "0.1.0"
+description = ""
+readme = "README.md"
+
