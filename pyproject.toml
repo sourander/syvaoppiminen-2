@@ -7,7 +7,7 @@ dependencies = [
     "mkdocs-material",
     "mkdocs-awesome-nav",
 ]
-name = "doc-skeleton"
+name = "syvaoppiminen-2"
 version = "0.1.0"
 description = ""
 readme = "README.md"

@@ -1,4 +1,4 @@
-site_name: Skeleton for Documentation Project
+site_name: Syväoppiminen II
 
 theme:
   name: material
@@ -55,6 +55,10 @@ markdown_extensions:
   # Content tabs
   - pymdownx.tabbed:
       alternate_style: true
+  # MathJax
+  - pymdownx.arithmatex:
+      generic: true
+
 
 plugins:
   # Navigation page ordering
@@ -62,6 +66,11 @@ plugins:
   - search
 
 
+
+# MathJax
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 
 
 copyright: |

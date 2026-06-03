@@ -1,8 +1,8 @@
-# AGENTS.md — Skeleton for Documentation Project
+# AGENTS.md — Syväoppiminen II
 
 ## Scope
 
-This is a **Material for MkDocs** lesson-material repository for **Skeleton for Documentation Project**. Content is authored primarily in **Finnish**.
+This is a **Material for MkDocs** lesson-material repository for **Syväoppiminen II**. Content is authored primarily in **Finnish**.
 
 The agent's role is **content co-author**, not autonomous refactorer.
 
