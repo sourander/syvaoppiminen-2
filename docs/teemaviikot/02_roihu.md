@@ -7,17 +7,16 @@
 
 On kovin tyypillistä, että koneoppimismalleja koulutetaan järjestelmällä, jossa ei ole graafista käyttöäliittymää, ja joka voi olla monimutkainen ja vieras. Tämä viikko tutustuttaa sinut yhteen tällaiseen ympäristöön.
 
-Tällä kurssilla käytetään CSC:n ympäristöä ja erityisesti Roihu-supertietokonetta. Keskeinen opetusmateriaali on CSC:n virallinen dokumentaatio, ja erityisesti koulutusmateriaali [CSC Computing Environment](https://csc-training.github.io/csc-env-eff/). Tämän ensimmäisen viikon aihepiiriin kuuluu sisällysluettelon mukaisesti:
+Tällä kurssilla käytetään CSC:n ympäristöä ja erityisesti Roihu-supertietokonetta. Keskeinen opetusmateriaali on CSC:n virallinen dokumentaatio, ja erityisesti koulutusmateriaali [CSC Computing Environment](https://csc-training.github.io/csc-env-eff/). Tämän ensimmäisen viikon aihepiiriin kuuluuvat:
 
-* Prerequisites: 
+* Basics: 
     * CSC account and project
     * Setting up SSH keys
-    * Login to ~~Puhti~~ Roihu
+    * Login to Roihu
 * Disk areas:
-    * Main disk areas
-    * Finding where you... (eli `lue` työkalun käyttö)
+    * Main disk areas (+ `lue`-komento)
 * Module system:
-    * Modules in ~~Puhti~~ Roihu
+    * Modules in Roihu
 
 Lisäksi tutustutaan Roihun myötä tulleisiin muutoksiin, joista kenties tärkein on `ProjData`-alue. Entisten `Home`, `ProjAppl` ja `Scratch` kylkeen on tullut tuo uutukainen, joka on tarkoitettu **datasettien jakamiseen projektien kesken**. Tällä kurssilla kullakin opiskelijalla on oma student project, mutta olisi tilan haaskausta ladata `n_oppilasta` kertaa Flower Dataset. Siispä opettaja on luonut "dataset project":n MyCSC-sivulla. Sinun ei tarvitse omaa luoda, mutta sinun tulee tietää, mistä se luotaisiin jos tarvitsisit sitä.
 

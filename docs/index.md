@@ -30,7 +30,7 @@ Viikot ovat:
 |      3 | Video   | [Slurm](teemaviikot/03_slurm.md)                                 | Opitaan ajamaan ensimmäinen koneoppimismalli Slurm-jonojärjestelmällä Roihulla.                                           |
 |      4 | Video   | [Flower Model @ Roihu](teemaviikot/04_flower_at_roihu.md)        | Siirretään Flower Model -koulutus Roihulle ja rakennetaan hybridityönkulku lokaalin kehityksen ja etäkoulutuksen välille. |
 |      5 | Video   | [Experiment Tracking](teemaviikot/05_tracking.md)                | Otetaan käyttöön MLflow ja rakennetaan järjestelmä kokeiden seurantaan lokaalisti ja Roihulla.                            |
-|      6 | Video   | [Suuret kielimallit](teemaviikot/06_llm.md)                      | Kertausosio suurista kielimalleista aiemman kurssin pohjalta.                                                             |
+|      6 | Video   | [Suuret kielimallit](teemaviikot/06_llm.md)                      | TODO: Syväoppiminen I kurssilta importattu osio.                                                                          |
 |      7 | Video   | [Parallelismi](teemaviikot/07_parallelismi.md)                   | Tutustutaan hajautetun oppimisen keskeisiin parallelismitekniikoihin käytännön esimerkkien avulla.                        |
 |      8 | Video   | [Kielimallin hienosäätö](teemaviikot/08_llm_ft.md)               | Harjoitellaan pienten kielimallien hienosäätöä menetelmillä kuten LoRA.                                                   |
 |      9 | Essee   | [Etiikka](teemaviikot/09_etiikka.md)                             | Pohditaan tekoälyn etiikkaa ja sen vaikutuksia yhteiskuntaan.                                                             |
