@@ -6,9 +6,9 @@
 
 ## Materiaali
 
-Tällä teemaviikolla tarkastellaan tekoälyä teknisen järjestelmän lisäksi yhteiskunnallisena, oikeudellisena ja kognitiivisena ilmiönä. Painopiste on erityisesti suurissa kielimalleissa, generatiivisessa tekoälyssä, tutkimuskäytön luotettavuudessa, regulaatiossa, datassa, immateriaalioikeuksissa, ympäristövaikutuksissa ja ihmisen roolissa tekoälyjärjestelmän käyttäjänä. Et tutustu näihin kaikkiin syvällisesti, vaan valitset sinulle läheisimmän tai mielestäsi tärkeimmän näkökulman, johon perehdyt tarkemmin. 
+Tällä teemaviikolla tarkastellaan tekoälyä teknisen järjestelmän lisäksi yhteiskunnallisena ilmiönä. Painopiste on erityisesti suurissa kielimalleissa, generatiivisessa tekoälyssä, tutkimuskäytön luotettavuudessa, regulaatiossa, datassa, immateriaalioikeuksissa, ympäristövaikutuksissa ja ihmisen roolissa tekoälyjärjestelmän käyttäjänä. Et tutustu näihin kaikkiin syvällisesti, vaan valitset sinulle läheisimmän tai mielestäsi tärkeimmän näkökulman, johon perehdyt tarkemmin. 
 
-Tavoitteena ei ole muodostaa yhtä “oikeaa” mielipidettä tekoälystä, vaan oppia tunnistamaan riskejä, perustelemaan suunnitteluratkaisuja ja arvioimaan tekoälyjärjestelmän käyttöä vastuullisesti.
+Tavoitteena ei ole muodostaa yhtä “oikeaa” mielipidettä tekoälystä, vaan oppia tunnistamaan riskejä ja arvioimaan tekoälyjärjestelmän käyttöä vastuullisesti.
 
 ## 1. (Tieteellinen) luotettavuus
 
@@ -151,13 +151,14 @@ Tekoälyn käyttö on tuonut monia uusia eettisiä ongelmia ohjelmointiin ja tuo
 Vaatimuksia ovat:
 
 * Esseen tulee olla kirjoitettu suomeksi.
+* Essee on yksittäinen PDF-tiedosto.
 * Esseen tulee olla vähintään 500 sanaa leipätekstinä mitattuna.
 * Esseen tulee käsitellä tekoälyn etiikkaa ja sen vaikutuksia yhteiskuntaan.
 * Esseen tulee sisältää vähintään kolme eri lähdettä.
-    * Käytä Vancouver-tyyliä
+    * Käytä Vancouver-lähdeviittausta.
     * Lähteiden tulee olla luotettavia ja relevantteja aiheeseen liittyen.
-    * Vähintään yhden lähteen tulee olla tieteellinen artikkeli, joka on vertaisarvioitu tai julkaistu luotettavassa julkaisussa.
-    * Vähintään yhden lähteen tulee olla uutisartikkeli, joka on julkaistu vuoden sisällä.
+    * Vähintään yhden lähteen tulee olla tieteellinen artikkeli, joka on vertaisarvioitu tai vähintään julkaistu luotettavassa julkaisussa.
+    * Vähintään yhden lähteen tulee julkaistu vuoden sisällä. Se voi olla esimerkiksi uutisartikkeli tai blogikirjoitus.
 
 Työn saa kirjoittaa valitsemallaan työkalulla. Suosittelen tutustumaan [Typst](https://typst.app/) -työkaluun. Saat tyylikkään, Arxiv-henkisen ulkonäön käyttämällä Typst Universesta [arkeion](https://typst.app/universe/package/arkheion/) -templaattia. Opettaja voi esitellä Typst:n käytön tukisessioissa.
 
