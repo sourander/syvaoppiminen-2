@@ -37,11 +37,14 @@ Tarkka repositorion rakenne on sinun päätettävissä. Varmista kuitenkin, ett�
 
 !!! tip "CLI-työskentely"
 
-    Kun ajat harjoituksia, siirry kyseiseen hakemistoon, ja aja komennot siellä. Esimerkiksi jos teet CDC01-harjoitusta, niin:
+    Kun ajat harjoituksia, siirry kyseiseen hakemistoon, ja aja komennot siellä. Esimerkiksi jos tutustut opettajan tekemään Flower Model -aihioon, niin:
 
     ```bash
-    cd cdc01
-    docker compose up -d
+    git clone https://gitlab.dclabra.fi/jani-public/flower-model-demo.git
+    cd flower-model-demo
+    uv run python
+    >>> from flowermodel.config import load_config_from_args
+    >>> ... # do your thing
     ```
 
 ## Videot
