@@ -1,0 +1,1183 @@
+
+<!doctype html>
+<html lang="fi" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="prev" href="../08_llm_ft/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>9: Tekoäly ja etiikka - Syväoppiminen II</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#9-tekoaly-ja-etiikka" class="md-skip">
+          Hyppää sisältöön
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Ylätunniste">
+    <a href="../.." title="Syväoppiminen II" class="md-header__button md-logo" aria-label="Syväoppiminen II" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Syväoppiminen II
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              9: Tekoäly ja etiikka
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Hae" placeholder="Hae" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Haku">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Tyhjää" aria-label="Tyhjää" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Aloitetaan hakua
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigaatio" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Syväoppiminen II" class="md-nav__button md-logo" aria-label="Syväoppiminen II" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Syväoppiminen II
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Tervetuloa kurssille
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Teemaviikot
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Teemaviikot
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../yleisohjeet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Yleisohjeet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../01_konfiguraatio/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1: Configuration-driven training
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../02_roihu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    2: CSC Roihu
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../03_slurm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    3: Slurm
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../04_flower_at_roihu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    4: Flower Model @ Roihu
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../05_tracking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    5: Experiment Tracking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../06_llm/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    6: Suuret kielimallit
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../07_parallelismi/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    7: Parallelismi
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../08_llm_ft/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    8: Kielimallin hienosäätö
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9: Tekoäly ja etiikka
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    9: Tekoäly ja etiikka
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Sisällysluettelo">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Sisällysluettelo
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#materiaali" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Materiaali
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-tieteellinen-luotettavuus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. (Tieteellinen) luotettavuus
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-kriittinen-ajattelu-ja-oppiminen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Kriittinen ajattelu ja oppiminen
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-lainsaadanto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Lainsäädäntö
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-data-vinoumat-ja-edustavuus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Data, vinoumat ja edustavuus
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-tekoalymallien-tekijanoikeudet-lisenssit-ja-avoin-lahdekoodi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Tekoälymallien tekijänoikeudet, lisenssit ja avoin lähdekoodi
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-tyoolot-datan-annotointi-ja-toimitusketjut" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Työolot, datan annotointi ja toimitusketjut
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-turvallisuus-vaarinkaytto-ja-llm-uhat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Turvallisuus, väärinkäyttö ja LLM-uhat
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-ymparistovaikutukset-ja-resurssien-kaytto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Ympäristövaikutukset ja resurssien käyttö
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-autonomiset-jarjestelmat-vastuu-ja-ihmisen-rooli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Autonomiset järjestelmät, vastuu ja ihmisen rooli
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tehtava" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tehtävä
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Sisällysluettelo">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Sisällysluettelo
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#materiaali" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Materiaali
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-tieteellinen-luotettavuus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        1. (Tieteellinen) luotettavuus
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-kriittinen-ajattelu-ja-oppiminen" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        2. Kriittinen ajattelu ja oppiminen
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-lainsaadanto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        3. Lainsäädäntö
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-data-vinoumat-ja-edustavuus" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        4. Data, vinoumat ja edustavuus
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-tekoalymallien-tekijanoikeudet-lisenssit-ja-avoin-lahdekoodi" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        5. Tekoälymallien tekijänoikeudet, lisenssit ja avoin lähdekoodi
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-tyoolot-datan-annotointi-ja-toimitusketjut" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        6. Työolot, datan annotointi ja toimitusketjut
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7-turvallisuus-vaarinkaytto-ja-llm-uhat" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        7. Turvallisuus, väärinkäyttö ja LLM-uhat
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8-ymparistovaikutukset-ja-resurssien-kaytto" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        8. Ympäristövaikutukset ja resurssien käyttö
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#9-autonomiset-jarjestelmat-vastuu-ja-ihmisen-rooli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        9. Autonomiset järjestelmät, vastuu ja ihmisen rooli
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tehtava" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Tehtävä
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="9-tekoaly-ja-etiikka">9: Tekoäly ja etiikka</h1>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>Linkit vaativat vielä läpikäyntiä ja tarkistusta. Ne on leikattu ja liimattu aiemmasta toteutuksesta, Raindrop-kirjastosta ja tekoälyn vinkkaamista linkeistä.</p>
+</div>
+<h2 id="materiaali">Materiaali</h2>
+<p>Tällä teemaviikolla tarkastellaan tekoälyä teknisen järjestelmän lisäksi yhteiskunnallisena ilmiönä. Painopiste on erityisesti suurissa kielimalleissa, generatiivisessa tekoälyssä, tutkimuskäytön luotettavuudessa, regulaatiossa, datassa, immateriaalioikeuksissa, ympäristövaikutuksissa ja ihmisen roolissa tekoälyjärjestelmän käyttäjänä. Et tutustu näihin kaikkiin syvällisesti, vaan valitset sinulle läheisimmän tai mielestäsi tärkeimmän näkökulman, johon perehdyt tarkemmin. </p>
+<p>Tavoitteena ei ole muodostaa yhtä “oikeaa” mielipidettä tekoälystä, vaan oppia tunnistamaan riskejä ja arvioimaan tekoälyjärjestelmän käyttöä vastuullisesti.</p>
+<h2 id="1-tieteellinen-luotettavuus">1. (Tieteellinen) luotettavuus</h2>
+<p>LLM-malleja vertaillaan usein benchmark-tuloksilla, mutta pelkkä pistemäärä voi antaa virheellisen kuvan mallien todellisesta käyttäytymisestä. Erityisesti tutkimuskäytössä mallivalinta, promptit ja annotointiprosessi voivat vaikuttaa lopputuloksiin. Kuinka malliin voidaan luottaa? Onko tekoäly uhka tieteelle? Entä uutisille?</p>
+<ul>
+<li>
+<p>Yang &amp; Wang: <em>Benchmark Illusion: Disagreement among LLMs and Its Scientific Consequences</em><br />
+  https://arxiv.org/abs/2602.11898</p>
+</li>
+<li>
+<p>Stanford HAI: AI Index 2026<br />
+  https://hai.stanford.edu/ai-index/2026-ai-index-report</p>
+</li>
+<li>
+<p>Zhao et al. 2026: LLM hallucinations in the wild: Large-scale evidence from non-existent citations<br />
+  https://arxiv.org/abs/2605.07723</p>
+</li>
+<li>
+<p>Yle perustaa tiedon varmentamiseen erikoistuvan tiimin<br />
+  https://yle.fi/a/20-10007870</p>
+</li>
+</ul>
+<h2 id="2-kriittinen-ajattelu-ja-oppiminen">2. Kriittinen ajattelu ja oppiminen</h2>
+<p>Tekoälytyökalut voivat tukea oppimista, mutta ne voivat myös vähentää käyttäjän omaa ajattelua, ongelmanratkaisua ja lähdekritiikkiä, jos niitä käytetään passiivisesti – vai kuinka on? Ota selvää.</p>
+<ul>
+<li>
+<p>Gerlich, M. (2025): <em>AI Tools in Society: Impacts on Cognitive Offloading and the Future of Critical Thinking</em><br />
+  https://doi.org/10.3390/soc15010006</p>
+</li>
+<li>
+<p>Microsoft Research: <em>The Impact of Generative AI on Critical Thinking</em><br />
+  https://www.microsoft.com/en-us/research/publication/the-impact-of-generative-ai-on-critical-thinking/</p>
+</li>
+<li>
+<p>UNESCO: <em>Guidance for generative AI in education and research</em><br />
+  https://www.unesco.org/en/articles/guidance-generative-ai-education-and-research</p>
+</li>
+<li>
+<p>Kosmyna et al 2025: Your brain on ChatGPT<br />
+  https://arxiv.org/abs/2506.08872</p>
+</li>
+</ul>
+<h2 id="3-lainsaadanto">3. Lainsäädäntö</h2>
+<p>Euroopan unionin AI Act tuo tekoälyjärjestelmille riskiperustaisen sääntelymallin. Sen rinnalla on edelleen huomioitava GDPR, tekijänoikeus, tietoturva ja toimialakohtainen sääntely. Jos lainsäädäntö kiinnostaa, pengo asiaa.</p>
+<ul>
+<li>
+<p>EU AI Act: virallinen säädösteksti<br />
+  https://eur-lex.europa.eu/eli/reg/2024/1689/oj</p>
+</li>
+<li>
+<p>EU AI Act implementation timeline<br />
+  https://artificialintelligenceact.eu/implementation-timeline/</p>
+</li>
+<li>
+<p>European Commission: AI Act<br />
+  https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai</p>
+</li>
+<li>
+<p>European Commission: Guidelines for providers of general-purpose AI models<br />
+  https://digital-strategy.ec.europa.eu/en/policies/guidelines-gpai-providers</p>
+</li>
+<li>
+<p>Tietosuojavaltuutetun toimisto: GDPR<br />
+  https://tietosuoja.fi/usein-kysyttya-gdpr</p>
+</li>
+</ul>
+<h2 id="4-data-vinoumat-ja-edustavuus">4. Data, vinoumat ja edustavuus</h2>
+<p>Mallin laatu ja oikeudenmukaisuus riippuvat vahvasti datasta. Koulutusdata voi sisältää historiallisia vinoumia, puutteellista edustavuutta, virheellisiä annotaatioita, henkilötietoja tai tekijänoikeudellisesti epäselvää materiaalia.</p>
+<ul>
+<li>
+<p>NIST Schwartz et al. 2022: <em>Towards a Standard for Identifying and Managing Bias in Artificial Intelligence</em><br />
+  https://www.nist.gov/publications/towards-standard-identifying-and-managing-bias-artificial-intelligence</p>
+</li>
+<li>
+<p>Hugging Face: Model Cards<br />
+  https://huggingface.co/docs/hub/model-cards</p>
+</li>
+<li>
+<p>Wang &amp; Russakovsky 2023: Overwriting Pretrained Bias with Finetuning Data<br />
+  https://openaccess.thecvf.com/content/ICCV2023/papers/Wang_Overwriting_Pretrained_Bias_with_Finetuning_Data_ICCV_2023_paper.pdf</p>
+</li>
+<li>
+<p>Garimella et al. 2022: Demographic-Aware Language Model Fine-tuning as a Bias Mitigation Technique<br />
+  https://aclanthology.org/2022.aacl-short.38/</p>
+</li>
+<li>
+<p>Ahmed et al. 2026: Extracting books from production language models<br />
+  https://arxiv.org/abs/2601.02671</p>
+</li>
+</ul>
+<h2 id="5-tekoalymallien-tekijanoikeudet-lisenssit-ja-avoin-lahdekoodi">5. Tekoälymallien tekijänoikeudet, lisenssit ja avoin lähdekoodi</h2>
+<p>Tekoälyprojekteissa täytyy erottaa toisistaan koodi, data, mallipainot, dokumentaatio ja tuotokset. Jokaisella näistä voi olla eri lisenssi, eri käyttöehdot ja eri riskit.</p>
+<ul>
+<li>
+<p>Open Source Initiative: Licenses<br />
+  https://opensource.org/licenses</p>
+</li>
+<li>
+<p>Choose a License<br />
+  https://choosealicense.com/</p>
+</li>
+<li>
+<p>Hugging Face: Model licenses<br />
+  https://huggingface.co/docs/hub/repositories-licenses</p>
+</li>
+</ul>
+<h2 id="6-tyoolot-datan-annotointi-ja-toimitusketjut">6. Työolot, datan annotointi ja toimitusketjut</h2>
+<p>Generatiivisen tekoälyn taustalla on usein näkymätöntä ihmistyötä: datan keruuta, luokittelua, moderointia, arviointia ja sisällön suodatusta. Vastuullinen tekoäly edellyttää myös näiden toimitusketjujen tarkastelua.</p>
+<ul>
+<li>
+<p>MOT: Applen tekoälyn kouluttajat paljastavat salatut säännöt: ”Sensuuria”<br />
+  https://yle.fi/a/74-20224113</p>
+</li>
+<li>
+<p>Partnership on AI: Responsible Sourcing of Data Enrichment Services<br />
+  https://partnershiponai.org/responsible-sourcing-considerations/</p>
+</li>
+<li>
+<p>Data Workers’ Inquiry<br />
+  https://data-workers.org/</p>
+</li>
+</ul>
+<h2 id="7-turvallisuus-vaarinkaytto-ja-llm-uhat">7. Turvallisuus, väärinkäyttö ja LLM-uhat</h2>
+<p>LLM-järjestelmiin liittyy uusia turvallisuusongelmia, kuten prompt injection, jailbreakit, datan vuotaminen, agenttien hallitsematon toiminta ja luottamuksellisen tiedon päätyminen vääriin paikkoihin. Muista, että älä kirjoita tästä teknologian vaan etiikan näkökulmasta. Voit pohtia myös tahallista väärinkäyttöä, kuten disinformaatiota tai deepfake-sisältöä.</p>
+<ul>
+<li>
+<p>OWASP Top 10 for Large Language Model Applications<br />
+  https://owasp.org/www-project-top-10-for-large-language-model-applications/</p>
+</li>
+<li>
+<p>YLE Marjatta Rautio: ”Iljettävää rikollisuutta” – lainoppineet kertovat, miten deepfake-pornoon voisi puuttua<br />
+  https://yle.fi/a/74-20227385</p>
+</li>
+</ul>
+<h2 id="8-ymparistovaikutukset-ja-resurssien-kaytto">8. Ympäristövaikutukset ja resurssien käyttö</h2>
+<p>Mallien koulutus ja käyttö kuluttavat energiaa, vettä, laskentakapasiteettia ja laitteistoja. Vastuullinen mallikehitys edellyttää myös mallin koon, käyttötarkoituksen ja resurssikulutuksen arviointia.</p>
+<ul>
+<li>
+<p>Stanford HAI: AI Index 2026<br />
+  https://hai.stanford.edu/ai-index/2026-ai-index-report</p>
+</li>
+<li>
+<p>Green Software Foundation<br />
+  https://greensoftware.foundation/</p>
+</li>
+<li>
+<p>YLE Jussi Hanhivaara: Datakeskukset huolestuttavat myös Yhdysvalloissa – tutkimuksen mukaan sähkön hinta voi nousta jopa lähes 60 prosenttia<br />
+  https://yle.fi/a/74-20227106</p>
+</li>
+</ul>
+<h2 id="9-autonomiset-jarjestelmat-vastuu-ja-ihmisen-rooli">9. Autonomiset järjestelmät, vastuu ja ihmisen rooli</h2>
+<p>Kun tekoälyjärjestelmä tekee päätöksiä tai toimii osana kriittistä järjestelmää, täytyy kysyä kuka vastaa, kuka valvoo, mitä lokitetaan ja milloin ihmisen pitää puuttua toimintaan.</p>
+<ul>
+<li>
+<p>Moral Machine<br />
+  https://www.moralmachine.net/</p>
+</li>
+<li>
+<p>Future of Life Institute: Autonomous Weapons<br />
+  https://futureoflife.org/project/autonomous-weapons/</p>
+</li>
+</ul>
+<h2 id="tehtava">Tehtävä</h2>
+<p>Tekoälyn käyttö on tuonut monia uusia eettisiä ongelmia ohjelmointiin ja tuotesuunnitteluun. Esim. kenen vika on, jos autonomisesti kulkeva ajoneuvo ajaa kolarin ja ihminen loukkaantuu. Ohjeet:</p>
+<ul>
+<li>Tutustu yllä olevaan materiaaliin vähintään pintapuoleisesti.</li>
+<li>Tutustu valitsemaasi aihealueeseen syvällisemmin. Etsi myös muita lähteitä kuin yllämainitut.</li>
+<li>Tee ja palauta essee: Tekoäly ja etiikka.</li>
+</ul>
+<p>Vaatimuksia ovat:</p>
+<ul>
+<li>Esseen tulee olla kirjoitettu suomeksi.</li>
+<li>Essee on yksittäinen PDF-tiedosto.</li>
+<li>Esseen tulee olla vähintään 500 sanaa leipätekstinä mitattuna.</li>
+<li>Esseen tulee käsitellä tekoälyn etiikkaa ja sen vaikutuksia yhteiskuntaan.</li>
+<li>Esseen tulee sisältää vähintään kolme eri lähdettä.<ul>
+<li>Käytä Vancouver-lähdeviittausta.</li>
+<li>Lähteiden tulee olla luotettavia ja relevantteja aiheeseen liittyen.</li>
+<li>Vähintään yhden lähteen tulee olla tieteellinen artikkeli, joka on vertaisarvioitu tai vähintään julkaistu luotettavassa julkaisussa.</li>
+<li>Vähintään yhden lähteen tulee julkaistu vuoden sisällä. Se voi olla esimerkiksi uutisartikkeli tai blogikirjoitus.</li>
+</ul>
+</li>
+</ul>
+<p>Työn saa kirjoittaa valitsemallaan työkalulla. Suosittelen tutustumaan <a href="https://typst.app/">Typst</a> -työkaluun. Saat tyylikkään, Arxiv-henkisen ulkonäön käyttämällä Typst Universesta <a href="https://typst.app/universe/package/arkheion/">arkeion</a> -templaattia. Opettaja voi esitellä Typst:n käytön tukisessioissa.</p>
+<div class="admonition tip">
+<p class="admonition-title">Lisävinkki työnhakuun</p>
+<p>Typst:llä on helppo kehittää CV ja eri työnantajille räätälöidyt saatekirjeet (engl. cover letter), ja niiden ylläpitäminen privaatissa Github-repositoriossa on yllättävän oiva tapa säilöä CV:t. </p>
+<p>Tähän käyttötarkoitukseen löytyy useita valmiita templaatteja, kuten <a href="https://typst.app/universe/package/basic-resume/">basic-resume</a> tai <a href="https://typst.app/universe/package/modern-cv">modern-cv</a>, joista ainakin jälkimmäinen vaatii fonttien asentamista käyttöjärjestelmään. Sen saa kuitenkin käyttöön vartissa.</p>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2026 <a href="https://www.kamk.fi">Kajaanin Ammattikorkeakoulu Oy</a>. 
+Licenced under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/">BY-NC-SA 4.0</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["content.code.copy", "content.code.annotate", "content.tabs.link"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Kopioitu leikep\u00f6yd\u00e4lle", "clipboard.copy": "Kopioi leikep\u00f6yd\u00e4lle", "search.result.more.one": "1 lis\u00e4\u00e4 t\u00e4ll\u00e4 sivulla", "search.result.more.other": "# lis\u00e4\u00e4 t\u00e4ll\u00e4 sivulla", "search.result.none": "Ei t\u00e4sm\u00e4\u00e4vi\u00e4 dokumentteja", "search.result.one": "1 t\u00e4sm\u00e4\u00e4v\u00e4 dokumentti", "search.result.other": "# t\u00e4sm\u00e4\u00e4v\u00e4\u00e4 dokumenttia", "search.result.placeholder": "Kirjoita aloittaaksesi haun", "search.result.term.missing": "Puuttuu", "select.version": "Valitse versio"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+        <script src="../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>
