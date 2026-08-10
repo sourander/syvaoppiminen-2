@@ -14,8 +14,8 @@ Alla listamuodossa huomioitavia asioita:
 
 * Kurssin kaikki tehtävät ovat pakollisia.
 * Myöhässä palautetun tehtävän arvosana laskee siten, että se rajoitetaan maksimiin, joka on...
-    * Palautus samana lukuvuonna: 3
-    * Palautus seuraavan lukuvuoden puolella: 1
+    * Palautus samana lukukautena: 3
+    * Palautus seuraavan lukukauden puolella: 1
 
 ## Teemaviikot
 
