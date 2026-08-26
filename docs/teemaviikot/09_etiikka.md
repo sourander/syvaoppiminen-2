@@ -139,6 +139,9 @@ Kun tekoälyjärjestelmä tekee päätöksiä tai toimii osana kriittistä järj
 - Future of Life Institute: Autonomous Weapons  
   https://futureoflife.org/project/autonomous-weapons/
 
+- Bill Gates: The turbulent AI era is here. The choices we make now are critical.  
+  https://www.gatesnotes.com/a-turbulent-ai-era-and-critical-choices-to-make
+
 
 ## Tehtävä
 
