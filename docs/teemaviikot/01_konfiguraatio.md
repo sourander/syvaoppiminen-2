@@ -24,10 +24,12 @@ cd ~/Code/syvaoppiminen-2-2026
 git lfs install
 
 # Kloonaa kurssin repositorio
-git clone git@gitlab.dclabra.fi:syvaoppiminen-2-2026/joannadurries.git
+# LUE INFOLAATIKKO ALTA
 ```
 
-Huomaa, että tästä eteenpäin vaiheet neuvoo GitLab. Tyhjä repositorio, joka on yllä mainittu, sisältää ohjeen `Create a new repository`. Aja siinä ohjeessa mainitut loputkin komennot, joista ensimmäinen olisi tässä tapauksessa `cd joannadurries` ja viimeinen alkaa sanoilla `git push`. Komentojen ajamisen jälkeen voit päivittää GitLab:ssa näkymän, ja sinulla pitäisi näkyä ohjeiden tilalle repositorion sisältö (eli yksi tyhjä README.md-tiedosto). Tämän jälkeen voit jatkaa alla olevia ohjeita.
+!!! info "LUE MINUT"
+
+    Tarkat komennot, jotka sinun tulee ajaa, voit kopioida suoraan GitLabista. Tyhjä repositoriosi sisältää ohjeen otsikolla **Create a new repository**. Aja kyseisen otsikon alla olevasta koodiblokista komennot. Komentojen ajamisen jälkeen voit päivittää GitLab:ssa näkymän, ja sinulla pitäisi näkyä ohjeiden tilalle repositorion sisältö (eli yksi tyhjä README.md-tiedosto). Tämän jälkeen voit jatkaa alla olevia ohjeita.
 
 ## 2. Tuo flower-model-demo repoosi
 
@@ -45,18 +47,24 @@ rm -rf flower-model-demo/.git
 
 Tiedosto `flower-model-demo/gitlfs-store/flower_photos.tgz` on gzipattu tar-arkisto, joka on **218 MB** kokoinen. Jos 30 opiskelijaa tekee tästä kukin oman kopion, haaskaamme turhaan yli 6 GB yhteiskäyttöistä levytilaa. Siksi tämä tiedosto tulee merkata Git ignoreen siten, ettei sitä turhaan lisätä juuri sinun repositorioon. Löydät tiedoston jatkossa opettajan repositoriosta, jos sitä tarvitset. Lisää seuraava rivi repositoriosi `.gitignore`-tiedostoon:
 
-```
+```title="~/Code/syvaoppiminen-2-2026/yourname/.gitignore"
 # Ignore large data file
 flower-model-demo/gitlfs-store/flower_photos.tgz
 ```
 
-Jos haluat tehdä tämän komentoriviltä, voit ajaa seuraavat komennot:
+!!! tip "Sama komentoriviltä"
 
-```bash
-echo 'flower-model-demo/gitlfs-store/flower_photos.tgz' >> .gitignore
-```
+    Jos haluat tehdä tämän komentoriviltä, voit ajaa seuraavat komennot:
 
-Jos haluat varmistaa, että tiedosto on lisätty oikein, voit ajaa alla näkymän komennon, ja tarkistaa, että tiedosto ==ei ole== listassa:
+    ```bash
+    cd ~/Code/syvaoppiminen-2-2026/yourname
+    echo '# Ignore large data file' >> .gitignore
+    echo 'flower-model-demo/gitlfs-store/flower_photos.tgz' >> .gitignore
+    ```
+
+    Näitä komentoja ei tarvitse ajaa, jos muokkasit tiedosto esimerkiksi Visual Studio Codessa.
+
+Jos haluat varmistaa, että hylkyehto (*engl. ignore rule*) on lisätty oikein, voit ajaa alla näkymän komennon, ja tarkistaa, että tiedosto ==ei ole== listassa:
 
 ```bash
 git status -u
