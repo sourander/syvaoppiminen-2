@@ -2,7 +2,7 @@
 
 Tällä viikolla tutustumme [jani-public/flower-model-demo](https://gitlab.dclabra.fi/jani-public/flower-model-demo)-toteutukseen. Sinun tehtäväsi on kloonata repo, ottaa se käyttöön, tutustua sen rakenteeseen ja ajaa mallin koulutus paikallisesti. Kun mallin koulutus onnistuu:
 
-* säädä hyperparametreja, kunnes mallin `val/F1_score`-mittari on 90 % tai parempi.
+* säädä hyperparametreja, kunnes mallin `best/f1_val`-metriikka on 90 % tai parempi.
 * tämän jälkeen aja koulutus myös testidataa vasten.
 * tallenna malli `models/`-hakemistoon.
 * konvertoi malli ONNX-muotoon.
