@@ -8,6 +8,70 @@ Tällä viikolla tutustumme [jani-public/flower-model-demo](https://gitlab.dclab
 * konvertoi malli ONNX-muotoon.
 * ota käyttöön `www/`-hakemistossa oleva demo, joka käyttää ONNX-muotoista mallia.
 
+## Kurssin repositorion alustus
+
+Teet kaikki tämän kurssin tehtävät annettuun repositorioon, joka on luotu sinulle. Se löytyy esimerkiksi osoitteesta `gitlab.dclabra.fi/syvaoppiminen-2-2026/joannadurries`, jos on vuosi 2026, ja sinun nimi sattuu olemaan Joanna Durries. Seuraa seuraavia vaiheita:
+
+## 1. Kloonaa kurssin repositorio
+
+```bash
+# Tee hakemisto sopivaan paikkaan, esimerkiksi:
+mkdir -p ~/Code/syvaoppiminen-2-2026
+cd ~/Code/syvaoppiminen-2-2026
+
+# Varmista, että Git LFS on asennettu ja käytössä. Komento 
+# on idempotentti, joten voit ajaa sen varmuuden vuoksi.
+git lfs install
+
+# Kloonaa kurssin repositorio
+git clone git@gitlab.dclabra.fi:syvaoppiminen-2-2026/joannadurries.git
+```
+
+Huomaa, että tästä eteenpäin vaiheet neuvoo GitLab. Tyhjä repositorio, joka on yllä mainittu, sisältää ohjeen `Create a new repository`. Aja siinä ohjeessa mainitut loputkin komennot, joista ensimmäinen olisi tässä tapauksessa `cd joannadurries` ja viimeinen alkaa sanoilla `git push`. Komentojen ajamisen jälkeen voit päivittää GitLab:ssa näkymän, ja sinulla pitäisi näkyä ohjeiden tilalle repositorion sisältö (eli yksi tyhjä README.md-tiedosto). Tämän jälkeen voit jatkaa alla olevia ohjeita.
+
+## 2. Tuo flower-model-demo repoosi
+
+Kloonaa [jani-public/flower-model-demo](https://gitlab.dclabra.fi/jani-public/flower-model-demo) -repoosi ja tee tästä kopiosta sellainen, ettei se ole enää jatkossa Git-repositorio, vaan ihan tavallinen sinun omistama hakemisto. Alla komennot:
+
+```bash
+# Kloonaa opettajan repo
+git clone https://gitlab.dclabra.fi/jani-public/flower-model-demo.git
+
+# Tuhoa nestatun repositorion .git-hakemisto, jolloin se ei ole enää Git-repositorio
+rm -rf flower-model-demo/.git
+```
+
+## 3. Ignooraa suuri datatiedosto
+
+Tiedosto `flower-model-demo/gitlfs-store/flower_photos.tgz` on gzipattu tar-arkisto, joka on **218 MB** kokoinen. Jos 30 opiskelijaa tekee tästä kukin oman kopion, haaskaamme turhaan yli 6 GB yhteiskäyttöistä levytilaa. Siksi tämä tiedosto tulee merkata Git ignoreen siten, ettei sitä turhaan lisätä juuri sinun repositorioon. Löydät tiedoston jatkossa opettajan repositoriosta, jos sitä tarvitset. Lisää seuraava rivi repositoriosi `.gitignore`-tiedostoon:
+
+```
+# Ignore large data file
+flower-model-demo/gitlfs-store/flower_photos.tgz
+```
+
+Jos haluat tehdä tämän komentoriviltä, voit ajaa seuraavat komennot:
+
+```bash
+echo 'flower-model-demo/gitlfs-store/flower_photos.tgz' >> .gitignore
+```
+
+Jos haluat varmistaa, että tiedosto on lisätty oikein, voit ajaa alla näkymän komennon, ja tarkistaa, että tiedosto ==ei ole== listassa:
+
+```bash
+git status -u
+```
+
+## 4. Puske uusi koodi remoteen
+
+Nyt koodi on oikein paikoillaan, eikä isoja tiedostoja ole kylkiäisenä, joten voit puskea muutokset GitLab-repositorioosi:
+
+```bash
+git add .
+git commit -m "Added flower-model-demo"
+git push
+```
+
 ## Videolla esitettävä
 
 1. Näytä, että datasetti on purettu `data/{train,val,test,online}` -hakemistoihin.
