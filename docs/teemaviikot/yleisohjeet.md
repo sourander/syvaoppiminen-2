@@ -51,4 +51,4 @@ Tarkka repositorion rakenne on sinun päätettävissä. Varmista kuitenkin, ett�
 
 Lähes kaikki kurssin tehtävät ovat videopalautuksia. Video palautetaan linkkinä. Niiden arviointiin käytetän Arviointityökalua asteikolla 0-5.
 
-Videon tekemisen ohjeistus on ulkoistettu [HedgeDoc: Videotetävän yleisohjeistus](https://gitlab.dclabra.fi/wiki/s/WX2xszsjJe) -dokumenttiin, koska sama ohjeistus on käytössä useilla kursseilla.
+Videon tekemisen ohjeistus on ulkoistettu [HedgeDoc: Videotehtävän yleisohjeistus](https://gitlab.dclabra.fi/wiki/s/WX2xszsjJe) -dokumenttiin, koska sama ohjeistus on käytössä useilla kursseilla.
