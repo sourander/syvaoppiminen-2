@@ -2,7 +2,9 @@
 
 !!! warning
 
-    Tämä materiaali on yhä hieman kesken. Opettaja odottaa CSC:ltä vahvistusta, että Roihu Dataset on luotu.
+    Vuoden 2026 kurssitoteutuksella kurssin datasetti jaetaan väliaikaisesti CSC Allas -palvelun kautta. Roihu Dataset -palveluun ja sen käyttötarkoitukseen tutustutaan silti osana kurssia.
+     
+    Väliaikainen järjestely johtuu siitä, että Roihu Dataset -projektin luomisessa näyttää kestävän viikkoja. Tämä voisi estää kurssin etenemisen aikataulussa.
 
 On kovin tyypillistä, että koneoppimismalleja koulutetaan järjestelmällä, jossa ei ole graafista käyttöliittymää, ja joka voi olla monimutkainen ja vieras. Tämä viikko tutustuttaa sinut yhteen tällaiseen ympäristöön.
 
@@ -17,11 +19,13 @@ Tällä kurssilla käytetään CSC:n ympäristöä ja erityisesti Roihu-supertie
 - Module system:
   - Modules in Roihu
 
-Lisäksi tutustutaan Roihun myötä tulleisiin muutoksiin, joista kenties tärkein on `ProjData`-alue. Entisten `Home`, `ProjAppl` ja `Scratch` kylkeen on tullut tuo uutukainen, joka on tarkoitettu **datasettien jakamiseen projektien kesken**. Tällä kurssilla kullakin opiskelijalla on oma student project, mutta olisi tilan haaskausta ladata `n_oppilasta` kertaa Flower Dataset. Siispä opettaja on luonut "dataset project":n MyCSC-sivulla. Sinun ei tarvitse omaa luoda, mutta sinun tulee tietää, mistä se luotaisiin jos tarvitsisit sitä.
+Lisäksi tutustutaan Roihun myötä tulleisiin muutoksiin, joista yksi tärkeimmistä on `ProjData`-levyalue. Entisten `Home`, `ProjAppl` ja `Scratch` -alueiden rinnalle on tullut `ProjData`, joka on tarkoitettu projektien hallinnoimien datasettien jakamiseen. Roihu Dataset -konseptissa datasetille voidaan luoda MyCSC-palvelussa erillinen Dataset Project. Kurssin opiskelijoilla on omat Student Projectinsa, mutta yhteistä aineistoa ei ole järkevää kopioida erikseen jokaisen opiskelijaprojektin levyalueelle. Dataset Project mahdollistaa aineiston hallitun jakamisen useiden projektien käyttöön.
 
 SSH:n suhteen uutta on vaatimus, että sinulla on signed SSH key, joka on rekisteröity MyCSC:hen. Lue tästä tarkemmin [Setting up SSH keys](https://docs.csc.fi/computing/connecting/ssh-keys/#signing-public-key)-ohjeesta. Roihussa on uutta edellisiin verrattuna myös se, että CPU ja GPU noodeille on omat erilliset login-nodet.
 
 ## Allas
+
+### Opettajan osuus
 
 CSC Allas on CSC:n tarjoama pilvipalvelu, *object storage*, joka muistuttaa kaupallista Amazon S3 -palvelua. Sitä voi käyttää useilla eri asiakassovelluksilla (ks. [Clients Comparison](https://docs.csc.fi/data/Allas/accessing_allas/#clients-comparison)), joista kenties sopivimman tarjonnan tuo S3cmd (ks. [The S3 Client](https://docs.csc.fi/data/Allas/using_allas/s3_client/)).
 
@@ -65,7 +69,7 @@ endpoint = a3s.fi
 acl = private
 ```
 
-Nyt on mahdollista luoda uusi bucket -- eli looginen, nimetty tiedostsäilö -- ja ladata sinne meidän `flower_photo.tgz`:
+Nyt on mahdollista luoda uusi bucket -- eli looginen, nimetty tiedostosäilö -- ja ladata sinne meidän `flower_photos.tgz`:
 
 ```bash title="Kotikone"
 cd ~/Code/jani-public/flower-model-demo/gitlfs-store
@@ -73,27 +77,70 @@ rclone mkdir s3allas2026:flower-dataset
 rclone copy flower_photos.tgz s3allas2026:flower-dataset
 ```
 
-Tiedosto on nyt osoitteessa `https://a3s.fi/flower-dataset/flower_dataset.tgz`, ja sen voisi ladata selaimella tai vaikka Swift/rclone-asiakasohjelmalla, jos pääsynhallinta eli ACL sallisi. No eipä salli! Muutetaan tilanne: tiedosto on nyt mahdollista jakaa joko valituille muille projekteille tai koko maailmalle julkiseksi. Alla kummatkin vaihtoehdot, joista jälkimmäinen on otettu käyttöön, koska dataset on CC-BY oikeuksin lisensoitu ja valmis jaettavaksi:
+Tiedosto on nyt osoitteessa `https://a3s.fi/flower-dataset/flower_photos.tgz`, ja sen voisi ladata selaimella tai vaikka Swift/rclone-asiakasohjelmalla, jos pääsynhallinta eli ACL sallisi. No eipä salli! Muutetaan tilanne: tiedosto on nyt mahdollista jakaa joko valituille muille projekteille tai koko maailmalle julkiseksi. Alla kummatkin vaihtoehdot, joista jälkimmäinen on otettu käyttöön, koska dataset on CC-BY oikeuksin lisensoitu ja valmis jaettavaksi:
 
 ```bash title="CSC Roihu"
-# Allas konfiguraatio (-k tallentaa salasanan ympäristömuuttujaan)
+# Allas konfiguraatio
 allas-conf
 
 # Jakaminen yhdelle tietylle projektille
 OTHER_PROJECT_UUID="3d5b0ae8e724b439a4cd16d1290"
-s3cmd setacl --acl-grant=read:$OTHER_PROJECT_UUID s3://my_fishbucket
+s3cmd setacl --acl-grant=read:$OTHER_PROJECT_UUID s3://flower-dataset/flower_photos.tgz
 
-# Jakaminen koko maailmalle
-s3cmd setacl --acl-public s3://fish-bucket
+# Bucket itsessään julkiseksi (listaus sallittu)
+s3cmd setacl --acl-public s3://flower-dataset/
+
+# Tiedosto (ja muutkin, jos niitä olisi) julkiseksi
+s3cmd setacl --acl-public --recursive s3://flower-dataset/
 ```
 
-Jatkossa osoite [/v1/flower-dataset/](https://a3s.fi/swift/v1/flower-dataset/) palauttaa tiedostolistauksen ja tarkka tiedoston osoite [/v1/flower-dataset/flower_photos.tgz](https://a3s.fi/swift/v1/flower-dataset/flower_photos.tgz) palauttaa tiedoston. Jatkossa tiedoston voi ladata mihin tahansa projektiin Roihu-ympäristössä komennolla:
+!!! warning
+
+    Julkinen S3-bucket ei ole sama asia kuin verkkopalvelimen julkinen hakemisto. Vaikka bucketin ACL sallii sen sisällön lukemisen ja listaamisen, osoite <https://a3s.fi/flower-dataset/> ei välttämättä näytä tiedostoluetteloa tavallisessa verkkoselaimessa.
+    
+    Swift-protokollassa julkinen container (eli *bucket* S3 terminologiassa) voidaan määrittää palauttamaan selaimelle tekstimuotoinen objektien luettelo. S3-protokollassa listaus tehdään S3-asiakasohjelmalla.
+
+    Nämä ovat kaksi kilpailevaa protokollaa, joista Swift on siirtymässä pois käytöstä CSC:n palveluissa. Aiemmat supertietokoneet Puhti ja Mahti käyttivät `allas-conf`-vakiona Swiftiä. Roihu käyttää S3:sta.
+
+### Opiskelijan osuus
+
+Tiedostolistaan ei pääse käsiksi selaimella, mutta S3-asiakasohjelmalla pääsee. Alla on esimerkki, jossa listataan bucketin sisältö:
 
 ```bash
-# Roihu
 module load allas
-s3cmd get s3://flower-dataset/flower_photos.tgz
+s3cmd ls s3://flower-dataset
 ```
+
+Kun haluat ladata tiedoston, voit käyttää joko `s3cmd` tai `curl` komentoja tai jopa tavallista verkkoselainta. Lähtökohtaisesti on suositeltavaa käyttää S3-asiakasohjelmaa, erityisesti suurten tiedostojen lataamiseen.
+
+Alla on S3 ja CURL esimerkit:
+
+```bash
+# S3-asiakasohjelmalla
+s3cmd get s3://flower-dataset/flower_photos.tgz
+
+# CURL-asiakasohjelmalla -- ei suositeltu, mutta toimii
+curl -O https://a3s.fi/flower-dataset/flower_photos.tgz
+```
+
+!!! tip
+
+    Kannattaa vilkaista komennon `s3cmd` dokumentaatiota, joka löytyy osoitteesta [Amazon S3 Tools](https://s3tools.org/s3cmd). S3:n pääsynhallinta on kohtalaisen monimutkainen konsepti, mutta kannattaa työuraan varautumisen takia vähintään pintapuoleiseti vilkaista AWS:n dokumentaatiota: [Bucket policies for Amazon S3](https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucket-policies.html). CSC Allas on S3-yhteensopiva, joten periaatteet ovat samat. CSC ei tosin juuri dokumentoi Bucket Policy -asetuksia, vaikka ne mainitaankin dokumentaatiossa.
+
+Jos haluat ladata tiedoston väliaikaisesti esimerkiksi Roihun kotihakemistoon, voit toimia näin:
+
+```bash
+# Lataa
+s3cmd get s3://flower-dataset/flower_photos.tgz ~/flower_photos.tgz
+
+# Tarkista tiedostostojen määrä paketissa
+tar tf ~/flower_photos.tgz | wc -l
+
+# Poista tiedosto, jos et enää tarvitse
+rm ~/flower_photos.tgz
+```
+
+Ethän turhaan pura tar-pakettia. Tämä tehdään myöhemmissä kurssin vaiheissa Slurm-skriptissä siten, että tiedostot ovat käytössä työtä suorittavan noodin työskentelyhakemistossa. Tällöin ne katoavat mennessään, kun Slurm-työ päättyy.
 
 ## Bonus: SSH-signeerauksen automatisointi
 
@@ -149,33 +196,43 @@ Host roihu-gpu
 Korvaa käyttäjätunnus `jsourand` omallasi. Tämän jälkeen voit kirjautua Roihuun yksinkertaisesti komennolla:
 
 ```bash
-ssh roihu
+ssh roihu-gpu
 ```
 
 ## Videolla esitettävä
 
-1. Näytät, että sinulla on oma CSC student project.
+1. Näytät, että sinulla on oma CSC Student Project.
 2. Kerrot lyhyesti, mikä on supertietokone jaettuna ympäristönä, ja erityisesti:
-   - Mitä eroa on login ja compute nodeilla.
-   - Miksi on tärkeää olla ajamatta raskasta laskentaa login nodella.
-   - Selität, miksi CSC:n ympäristössä muut käyttäjät tulee ottaa huomioon, eikä esimerkiksi huvikseen tai laiskuuttaan jättää tuhoamatta turhaksi käyneitä tiedostoja.
+    - Mitä eroa on login ja compute nodeilla.
+    - Miksi on tärkeää olla ajamatta raskasta laskentaa login nodella.
+    - Selität, miksi CSC:n ympäristössä muut käyttäjät tulee ottaa huomioon, eikä esimerkiksi huvikseen tai laiskuuttaan jättää tuhoamatta turhaksi käyneitä tiedostoja.
 
 3. Kirjaudut sisään SSH:lla, ja
-   - Tulostat nykyisen työskentelyhakemiston.
-   - Ajat komennont `csc-projects`.
-   - Esittelet keskeiset levyalueet. Navigoi kuhunkin `cd`-komennolla.
-   - Näytät, mistä löytyy `flower_photos.tgz`-tiedosto (Roihu Dataset Project).
+    - Tulostat nykyisen työskentelyhakemiston.
+    - Ajat komennont `csc-projects`.
+    - Esittelet keskeiset levyalueet. Navigoi kuhunkin `cd`-komennolla.
+    - ~~Näytät, mistä löytyy `flower_photos.tgz`-tiedosto (Roihu Dataset Project).~~ (ei 2026 toteutuksessa)
+    - Esittelet `ProjData`-levyalueen käyttötarkoituksen.
+    - Näytät MyCSC-palvelussa, mistä uusi Dataset Project luotaisiin. Sinun ei tarvitse luoda projektia, vaikka sinulla saattaakin olla oikeudet siihen.
+    - Lataat `flower_photos.tgz`-tiedoston CSC Allas -palvelusta kotihakemistoosi, tarkistat että se latautu oikein, ja poistat sen lopuksi.
 
 4. Näytät, että tunnet moduulijärjestelmän:
-   - Listaat moduulit.
-   - Etsi moduuli, jossa esiintyy sana `pytorch`
-   - Lataa tuorein pytorch-moduuli
-   - Moduulin mukana tulee `uv`. Näytä komennon `uv self version` tuloste.
+    - Listaat moduulit.
+    - Etsi moduuli, jossa esiintyy sana `pytorch`
+    - Lataa tuorein pytorch-moduuli
+    - Moduulin mukana tulee `uv`. Näytä komennon `uv self version` tuloste.
 
 5. Näytät, että tunnet Lustren perusteet:
-   - Selvitä, missä moduulissa tulee `lue`-binääri. Lataa moduuli.
-   - Käytät `lue`-komentoa (esim. `lue ~`) ja selität, mitä se tekee.
+    - Selvitä, missä moduulissa tulee `lue`-binääri. Lataa moduuli.
+    - Käytät `lue`-komentoa (esim. `lue ~`) ja selität, mitä se tekee.
 
-6. Kerrot lyhyesti, mikä Allas on ja mihin sitä käytetään.
+6. Todistat, että CSC Allas on sinulle tuttu.
+    - Esittelet, mikä CSC Allas on.
+    - Selität, mitä object storage tarkoittaa.
+    - Selität, mikä on S3 bucket.
 
-Kokonaisuutena videosta tulee ilmetä, että ymmärrät CSC:n ajoympäristön perusrakenteen, osaat kirjautua palveluun SSH:lla, osaat käyttää moduulijärjestelmää, osaat navigoida hakemistoissa ja tiedät, mistä data ja resurssit löytyvät. Ymmärrät, että CSC on jaettu ympäristö, ja sinulla on tämän vuoksi vastuu siitä, että et kuormita järjestelmää turhaan.
+Kokonaisuutena videosta tulee ilmetä, että ymmärrät CSC:n ajoympäristön perusrakenteen, osaat kirjautua palveluun SSH:lla, käyttää moduulijärjestelmää ja navigoida keskeisillä levyalueilla.
+
+Sinun tulee myös ymmärtää Roihu Dataset -palvelun ja Dataset Projectin käyttötarkoitus, vaikka kurssin datasettiä ei vielä jaeta niiden kautta. Osaat paikantaa datasetin CSC Allaksessa S3-lokaation perusteella, ladata sen väliaikaisesti ja poistaa tarpeettoman paikallisen kopion.
+
+Ymmärrät, että CSC on jaettu ympäristö, minkä vuoksi sinulla on vastuu siitä, ettet kuormita järjestelmää tarpeettomasti etkä säilytä turhia tiedostokopioita.
