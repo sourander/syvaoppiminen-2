@@ -175,6 +175,37 @@ Korvaa yllä olevassa komennossa `jsourand` omalla CSC-käyttäjätunnuksellasi.
 3. Liitä koodi terminaaliin ja paina Enter.
 4. Se kysyy sinun SSH-passphrasea. Anna se ja paina Enter.
 
+!!! tip "Entä jos on selainprofiileja?"
+
+    Jos sinulla on useampi selainprofiili, kannattaa korvata symbolinen linkki pienellä shell-skriptillä, joka huolehtii selaimen profiilista. Esimerkiksi Chromella tämä hoituu niin, että avaat selaimen ko. profiilissa ja menet osoitteeseen `chrome://version`. Löydät **Profile Path** kohdasta profiilin nimen, kuten `Profile 1`. Tämän jälkeen seuraa ohjeita:
+
+    ```bash
+    # Tuhoa symbolinen linkki jos teit sen jo
+    rm ~/.local/bin/csc-cert-helper
+
+    # Luo shell srripti sen tilalle
+    nvim ~/.local/bin/csc-cert-helper
+    ```
+
+    Aseta sisällöksi:
+
+    ```bash
+    #!/bin/bash
+
+    # Force the specific browser profile just for this execution
+    export BROWSER="google-chrome --profile-directory 'Profile 1' %s"
+
+    # Execute the actual Python script and pass all command-line arguments to it
+    exec ~/.local/lib/certificate-helper-tool/csc_cert.py "$@"
+    ```
+
+    Tee tiedostosta vielä ajettava ja aja se:
+
+    ```bash
+    chmod +x ~/.local/bin/csc-cert-helper
+    csc-cert-helper -u jsourand
+    ```
+
 ## Bonus: SSH Config
 
 Voit helpottaa SSH-yhteyksien muodostamista jatkossa lisäämällä seuraavat rivit `~/.ssh/config`-tiedostoon:
