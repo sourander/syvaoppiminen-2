@@ -23,6 +23,27 @@ Tällä kurssilla datasetti on jaettu opiskelijoille valmiiksi Roihu Dataset -pr
 
 Kurssin datasetti löytyy hakemistosta: `/dataset/project_2021217/`. Huomaa, että tämä projektinumero on eri kuin opettajan kurssiprojekti tai sinun projektisi. Tämä on täysin oma, erillinen Roihu Dataset -projekti.
 
+### Opettajan osuus
+
+Projekti on opettajan hallinnoima, joten opettaja voi kirjoittaa siihen tiedostoja samalla tavalla kuin muihinkin levyalueisiin, joihin opettajalla on kirjoitusoikeus. Opettaja on ladannut datasetin `flower_photos.tgz`-paketin muodossa, joka on jaettu kaikille opiskelijoille. Opettaja voi ladata sen esimerkiksi seuraavalla tavalla:
+
+```bash
+# CSC Allas -palvelusta
+module load allas
+cd /dataset/project_2021217/
+s3cmd get s3://flower-dataset/flower_photos.tgz
+```
+
+Tai, vaihtoehtoisesti, lähettäen sen omalta koneeltaan `scp`-komennolla:
+
+```bash
+# Omalla koneella
+scp flower_photos.tgz roihu-gpu:/dataset/project_2021217/
+```
+
+
+### Opiskelijan osuus
+
 Voit tarkastella hakemiston sisältöä ja paketin kokoa tavallisilla Linux-komennoilla:
 
 ```bash
