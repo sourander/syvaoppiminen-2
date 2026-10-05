@@ -118,8 +118,6 @@ s3cmd setacl --acl-public --recursive s3://flower-dataset/
 
 ### Opiskelijan osuus
 
-### Opiskelijan osuus (Referenssi)
-
 Koska kurssin data on saatavilla suoraan Roihun `dataset`-levyalueelta, sinun ei tällä kurssilla tarvitse käyttää S3-asiakasohjelmia datan noutamiseen. On kuitenkin hyvä ymmärtää, miten julkiseksi jaettua S3-dataa voi hakea.
 
 Jos haluat ladata tiedoston väliaikaisesti esimerkiksi omalle kotikoneellesi tai Roihun kotihakemistoon testailua varten, helpoin tapa julkisen datan kohdalla on käyttää tavallista verkkoselainta tai `curl`-komentoa. Julkisen tiedoston lataaminen onnistuu ilman monimutkaisia konfiguraatioita:
