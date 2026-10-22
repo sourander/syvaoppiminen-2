@@ -7,9 +7,9 @@ Tarkemmin viikon aihe on Slurm-jonojärjestelmä. Opitaan, miten Slurm toimii ja
 Opetusmateriaalia ovat:
 
 - Viime viikolta tuttu [CSC Computing Environment](https://csc-training.github.io/csc-env-eff/). Tarkemmin nämä sivut:
-  - Batch job tutorial - Serial jobs
-  - Using sacct and seff to understand resource usage of finished jobs
-  - Get an overview of the resource usage of recent jobs
+    - (5.1) Batch job tutorial - Serial jobs
+    - (6.1) Using sacct and seff to understand resource usage of finished jobs
+    - (6.2) Get an overview of the resource usage of recent jobs
 - CSC:n Running jobs -ohjeet: [Computing > Running jobs](https://docs.csc.fi/computing/running/getting-started/).
 - Slurm-dokumentaatio: https://slurm.schedmd.com/documentation.html
 
