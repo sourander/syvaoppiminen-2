@@ -1,5 +1,9 @@
 # 4: Flower Model @ Roihu
 
+!!! warning
+
+    Tämä materiaali on toteutettu hyvin, hyvin nopeasti. Opettaja testaa tämän vielä läpi.
+
 Tällä viikolla yhdistetään kolmen edellisen viikon opit. Viikolla 1 koulutit Flower Modelin omalla koneellasi, viikolla 2 tutustuit Roihuun ja viikolla 3 Slurmiin. Nyt sama Flower Model koulutetaan Roihun GPU-solmulla. Lopputuloksena koulutus käynnistyy yhdellä komennolla omalta koneeltasi, ja tulokset ovat nähtävissä Roihun verkkokäyttöliittymässä ajettavassa MLflow:ssa.
 
 Viikon kokonaisuus koostuu seuraavista osista:
