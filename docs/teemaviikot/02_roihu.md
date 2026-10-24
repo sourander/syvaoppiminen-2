@@ -5,13 +5,13 @@ On kovin tyypillistä, että koneoppimismalleja koulutetaan järjestelmällä, j
 Tällä kurssilla käytetään CSC:n ympäristöä ja erityisesti Roihu-supertietokonetta. Keskeinen opetusmateriaali on CSC:n virallinen dokumentaatio, ja erityisesti koulutusmateriaali [CSC Computing Environment](https://csc-training.github.io/csc-env-eff/). Myös [Roihu disk areas](https://docs.csc.fi/computing/roihu-disk/) ja [Lustre file system](https://docs.csc.fi/computing/lustre/ ovat tärkeitä lähteitä). Tämän ensimmäisen viikon aihepiiriin kuuluuvat **CSC Computing Environment**-materiaalista:
 
 - Basics:
-  - CSC account and project
-  - Setting up SSH keys
-  - Login to Roihu
-- Disk areas:s
-  - Main disk areas (+ `lue`-komento)
+    - CSC account and project
+    - Setting up SSH keys
+    - Login to Roihu
+- Disk areas:
+    - Main disk areas (+ `lue`-komento)
 - Module system:
-  - Modules in Roihu
+    - Modules in Roihu
 
 Lisäksi tutustutaan Roihun myötä tulleisiin muutoksiin, joista yksi tärkeimmistä on `ProjData`-levyalue. Entisten `Home`, `ProjAppl` ja `Scratch` -alueiden rinnalle on tullut `ProjData`, joka on tarkoitettu projektien hallinnoimien datasettien jakamiseen. Roihu Dataset -konseptissa datasetille voidaan luoda MyCSC-palvelussa erillinen Dataset Project. Kurssin opiskelijoilla on omat Student Projectinsa, mutta yhteistä aineistoa ei ole järkevää kopioida erikseen jokaisen opiskelijaprojektin levyalueelle. Dataset Project mahdollistaa aineiston hallitun jakamisen useiden projektien käyttöön.
 
