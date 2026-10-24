@@ -8,6 +8,8 @@ Tällä viikolla tutustumme [jani-public/flower-model-demo](https://gitlab.dclab
 * konvertoi malli ONNX-muotoon.
 * ota käyttöön `www/`-hakemistossa oleva demo, joka käyttää ONNX-muotoista mallia.
 
+Jos MobileNet-malli ei ole Syväoppiminen-kurssilta laisinkaan muistissa, kannattaa tutustua joko Toward Data Science -artikkeliin [MobileNetV3 Paper Walkthrough: The Tiny Giant Getting Even Smarter](https://towardsdatascience.com/mobilenetv3-paper-walkthrough-the-tiny-giant-getting-even-smarter/) tai MobileNetV3:n alkuperäiseen julkaisuun [Searching for MobileNetV3](https://arxiv.org/abs/1905.02244). On suositeltavaa silmäillä myös oman oppimispäiväkirjan merkinnät konvoluutioverkkoista.
+
 ## Kurssin repositorion alustus
 
 Teet kaikki tämän kurssin tehtävät annettuun repositorioon, joka on luotu sinulle. Se löytyy esimerkiksi osoitteesta `gitlab.dclabra.fi/syvaoppiminen-2-2026/joannadurries`, jos on vuosi 2026, ja sinun nimi sattuu olemaan Joanna Durries. Seuraa seuraavia vaiheita:
@@ -82,10 +84,13 @@ git push
 
 ## Videolla esitettävä
 
+Ennen kuin alat tehdä videota, varmista, että olet lukenut [Yleisohjeet](yleisohjeet.md). Alla ovat tälle viikolle spesifit ohjeet, jotka täydentävät yleisiä ohjeita.
+
 1. Näytä, että datasetti on purettu `data/{train,val,test,online}` -hakemistoihin.
 2. Näytät, mistä YAML-konfiguraatiotiedosto löytyy.
 3. Kommentoit lyhyesti, mitä hyperparametreja päädyit säätämään ja miksi.
-4. Näytät MLflow:ssa vähintään 5 eri runia eri hyperparametreilla yleisnäkymässä.
+    - On sallittua kokeilla suurempaa `mobilenet_v3_large`-mallia, mutta **se ei ole hyperparametri**. Se on eri malli.
+4. Näytät MLflow:ssa vähintään 5 eri runia **eri hyperparametreilla** yleisnäkymässä.
 5. Esittelet näistä tarkemmin 2 runia
 
      * näytät parametrit, ja

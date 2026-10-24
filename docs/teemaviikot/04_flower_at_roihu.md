@@ -221,7 +221,32 @@ srun python -m flowermodel.train \
 
 ```
 
-### 8. Ensimmäinen ajo käsin
+### 8. Versioiden yhteensovitus
+
+Paikallisessa `uv`-projektissa ja Roihun moduulissa voi olla eri versiot samoista paketeista. Eri MLflow-versiot voivat esimerkiksi tuottaa yhteensopimattomia tietokantoja, ja eri PyTorch-versiot voivat tuottaa eri tuloksia. Roihun moduulin versioihin ei voi vaikuttaa, joten on helpompaa sovittaa paikallinen ympäristö Roihun mukaiseksi.
+
+Tallenna moduulin pakettiluettelo tiedostoon:
+
+```bash title="CSC Roihu"
+module load python-pytorch/2.13
+pip freeze > ~/pip-freeze-python-pytorch-213
+```
+
+Etsi luettelosta (esim. `grep`-komennolla) niiden pakettien versiot, jotka ovat `pyproject.toml`-tiedostosi `dependencies`-listassa. Etsimisen voi hoitaa esimerkiksi seuraavalla tavalla:
+
+```bash title="CSC Roihu"
+grep -E 'mlflow|omegaconf|onnx|psutil|torch' ~/pip-freeze-python-pytorch-213 
+```
+
+Kiinnitä ne paikallisesti:
+
+```bash title="Oma kone"
+uv add <paketti>==<versio>
+```
+
+Muista myös, että paikallinen MLflow-palvelin ajetaan kontissa (`containers/mlflow/compose.yml`). Kontin imagen version kannattaa vastata Python-kirjaston versiota. On suositeltavaa täsmätä myös Pythonin versio. Tällöin vaihdat tiedoston `.python-version` sisällön esimerkiksi `3.12`-versioksi. Tämä vaatii, että `pyproject.toml`-tiedostossa määritelty `requires-python`-ehto sallii tämän; sen arvon voit vaihtaa käsin. Aja tämän vaihdoksen jälkeen `uv sync`.
+
+### 9. Ensimmäinen ajo käsin
 
 Puske muutokset omalta koneeltasi, päivitä klooni Roihussa ja lähetä työ jonoon:
 
@@ -262,24 +287,6 @@ Kun työ on valmis, tarkastele sitä viikolta 3 tutuilla komennoilla (`seff`, `s
 
     Tällöin Slurm-skriptissä aktivoidaan `module load` -rivin jälkeen myös tämä ympäristö. Älä tee tätä, ellei se ole tarpeen.
 
-### 9. Versioiden yhteensovitus
-
-Paikallisessa `uv`-projektissa ja Roihun moduulissa voi olla eri versiot samoista paketeista. Eri MLflow-versiot voivat esimerkiksi tuottaa yhteensopimattomia tietokantoja, ja eri PyTorch-versiot voivat tuottaa eri tuloksia. Roihun moduulin versioihin ei voi vaikuttaa, joten on helpompaa sovittaa paikallinen ympäristö Roihun mukaiseksi.
-
-Tallenna moduulin pakettiluettelo tiedostoon:
-
-```bash title="CSC Roihu"
-module load python-pytorch/2.13
-pip freeze > ~/pip-freeze-python-pytorch-213
-```
-
-Etsi luettelosta (esim. `grep`-komennolla) niiden pakettien versiot, jotka ovat `pyproject.toml`-tiedostosi `dependencies`-listassa, ja kiinnitä ne paikallisesti:
-
-```bash title="Oma kone"
-uv add <paketti>==<versio>
-```
-
-Muista myös, että paikallinen MLflow-palvelin ajetaan kontissa (`containers/mlflow/compose.yml`). Kontin imagen version kannattaa vastata Python-kirjaston versiota.
 
 ### 10. FirecREST-kaninkolo
 

@@ -1,86 +1,86 @@
 # 5: Flower ViT
 
-!!! warning
+Roihu on nyt käytössä, joten on aika kokeilla hieman suurempaa mallia. Materiaali on kirjoitettu ViT (Vision Transformer) -mallin pohjalta, mutta voit käyttää myös muita malleja. Sopivaa mallia voit etsiä [PyTorch Models and pre-trained weights](https://docs.pytorch.org/vision/main/models.html#table-of-all-available-classification-weights)-dokumentaatiosta. Jos haluat paukutella henkseleitä, niin esimerkiksi `ViT_L_16_Weights.IMAGENET1K_V1`-painot koostuvat huikeasta 304 miljoonasta parametrista. Jos käytössä on Adam ja kaikkia parametreja koulutetaan, pelkät painot, gradientit ja Adamin kaksi momenttia vievät fp32-tarkkuudella $4 \times 4 = 16$ tavua per parametri eli noin $304 \times 16 \approx 4.9$ GB muistia. Tämän päälle tulevat aktivaatiot, jotka skaalautuvat eräkoon (_engl. batch size_) mukaan. Voi olla mielenkiintoista kurkata, miltä muistinkäyttö näyttää MLflow:n tilastoissa!
 
-    Tämä materiaali on toteutettu hyvin, hyvin nopeasti. Opettaja testaa tämän vielä läpi.
+Transformer-arkkitehtuuri käsitellään kunnolla vasta ensi viikolla. Tällä viikolla ViT toimii maistiaisena. Mallia käytetään samalla tavalla kuin MobileNetiä eli esikoulutettuna backbonena, jonka päälle vaihdetaan oma luokittelupää. Sisäistä toimintaa ei tarvitse vielä ymmärtää yksityiskohtaisesti. Riittää, että tiedät seuraavat asiat ViT-B/16-mallista:
 
-Roihu on nyt käytössä, joten on aika kokeilla hieman suurempaa mallia. Materiaali on kirjoitettu ViT (Vision Transformer) -mallin pohjalta, mutta voit käyttää myös muita malleja. Sopivaa mallia voit etsiä [PyTorch Models and pre-trained weights](https://docs.pytorch.org/vision/main/models.html#table-of-all-available-classification-weights)-dokumentaatiosta. Jos haluat paukutella henkseleitä, niin esimerkiksi `ViT_L_16_Weights.IMAGENET1K_V1`-painot koostuvat huikeasta 300 miljoonasta parametrista. Jos käytössä on Adam ja kaikkia parametreja koulutetaan, pelkät painot, gradientit ja Adamin kaksi momenttia vievät fp32-tarkkuudella $4 \times 4 = 16$ tavua per parametri eli noin $300 \times 16 \approx 4,9$ GB muistia. Tämän päälle tulevat aktivaatiot. Voi olla mielenkiintoista kurkata, miltä muistinkäyttö näyttää MLflow:n tilastoissa!
+- Kuva ($224 \times 224$) pilkotaan $16 \times 16$ pikselin paloihin.
+- Kukin pala muunnetaan 768-ulotteiseksi vektoriksi, joka vastaa kielimallin tokenia (sanaa tai sanan osaa).
+- Tokenit kulkevat 12 peräkkäisen enkooderilohkon läpi. Nämä ovat varsinainen Transformer-arkkitehtuuri.
 
-Transformer-arkkitehtuuri käsitellään kunnolla vasta ensi viikolla. Tällä viikolla ViT toimii spoilerina tai maistiaisena. Vaikka arkkitehtuuri on kovin erilainen, mallia käytetään samalla tavalla kuin MobileNetiä eli esikoulutettuna backbonena, jonka päälle vaihdetaan oma luokittelupää. Sisäistä toimintaa ei tarvitse vielä ymmärtää yksityiskohtaisesti. Riittää, että tiedät seuraavat asiat ViT-B/16-mallista:
+Mallin vaihto vaatii konfiguraatiotiedostojen lisäksi muutoksia koodiin, jotta konfiguraatiovetoinen kouluttaminen toimii jatkossakin. Muutokset tehdään siten, että taaksepäin yhteensopivuus pysyy. Lopuksi ViT-malli hienosäädetään aivan kuten MobileNet-malli viikolla 1. Suurena erona on se, että nyt rautana toimii oman kotikoneen sijasta CSC:n Roihu.
 
-- Kuva ($224 \times 224$) pilkotaan $16 \times 16$ pikselin paloihin (*engl. patch*).
-- Kukin pala muunnetaan 768-ulotteiseksi vektoriksi (*engl. token*). Tämän tekee konvoluutiokerros `conv_proj`, jonka kernelin koko ja askel ovat molemmat 16.
-- Jono kulkee 12 peräkkäisen enkooderilohkon läpi. Nämä ovat varsinainen Transfomer-arkkitehtuuri.
-
-Viikon kokonaisuus koostuu seuraavista osista:
-
-- Flower Modelin `model.py` laajennetaan tukemaan useampaa mallikuitua (*engl. model family*) siten, että vanhat MobileNet-konfiguraatiot ja -checkpointit toimivat kuten ennenkin.
-- ViT:lle luodaan oma konfiguraatiotiedosto.
-- Muutokset testataan omalla koneella yhden epookin savutestillä (*engl. smoke test*), ennen kuin mitään lähetetään Roihuun.
-- Koodi siirretään Roihuun viikolta 4 tutulla tavalla GitLabin kautta, ja koulutus käynnistetään `sbatch`-komennolla.
-- ViT:n tuloksia verrataan MobileNetiin Roihun MLflow-sovelluksessa.
-
-Opetusmateriaalia ovat:
-
-- Dosovitskiy et al.: [An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929). Tämä on ViT:n alkuperäinen julkaisu. Ensi viikon jälkeen sen lukeminen on helpompaa, mutta kuvat ja johdanto kannattaa silmäillä jo nyt.
+Vaikka transformer-arkkitehtuuri on vieras, kannattaa silmäillä Dosovitskiy et al. konferenssijulkaisua [An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929). Tutustu esimerkiksi, kuinka kauan ViT-L/16-mallin koulutus kestäisi ImageNet-21k datasetillä. Myös otsikon 4.5, _"Inspecting Vision Transformer"_, sisältö voi olla mielenkiintoista jo ennen kuin ymmärrät Transformer-arkkitehtuurin yksityiskohdat.
 
 ## Työvaiheet
 
 ### 1. Tutustu ViT:n rakenteeseen
 
-Ennen kuin muokkaat koodia, katso, miltä mallit näyttävät sisältä. Avaa `flower-model-demo`-hakemistossa REPL komennolla `uv run python` ja aja:
+Ennen kuin muokkaat koodia, katso, miltä mallit näyttävät sisältä. Voit tehdä tämän Marimossa luomalla uuden Notebookin. Se onnistuu komennolla:
 
-```python title="Oma kone (uv run python)"
+```bash title="Oma kone"
+uv run marimo edit notebooks/model_architecture_inspection.py
+```
+
+Sijoita seuraava koodi soluihin:
+
+```python title="Oma kone (marimon soluissa)"
 import torchvision.models as models
 
 mobilenet = models.get_model("mobilenet_v3_small", weights="DEFAULT")
 vit = models.get_model("vit_b_16", weights="DEFAULT")
 
-print(mobilenet)
-print(vit)
+# Yhteen soluun
+mobilenet # tai print(mobilenet)
+
+# Toiseen soluun
+vit       # tai print(vit)
 
 print(len(mobilenet.features), mobilenet.classifier)
 print(len(vit.encoder.layers), vit.heads)
 
 for name, m in [("mobilenet", mobilenet), ("vit", vit)]:
-    print(name, sum(p.numel() for p in m.parameters()))
+    n_params = sum(p.numel() for p in m.parameters())
+    print(f"{name}: {n_params:,} parameters")
 ```
 
-Huomaa, että ViT-B/16:n painot ovat noin 330 MB, joten ensimmäinen lataus kestää hetken.
+Marimon ominaisuus, joka sallii tutustua interaktiivisesti PyTorch-mallin kerroksiin, on kertakaikkisen näppärä. Näet, että mallit on koottu eri nimisistä osista:
 
-Tulosteesta näet, että mallit on koottu eri nimisistä osista:
-
-| Osa                     | MobileNetV3                | ViT                          |
-| ----------------------- | -------------------------- | ---------------------------- |
-| Piirteitä tuottavat lohkot | `features`              | `encoder.layers` (12 kpl)    |
-| Viimeinen normalisointi | (osa `features`-lohkoja)   | `encoder.ln`                 |
-| Luokittelupää           | `classifier`               | `heads` (sisällä `head`)     |
+| Osa                            | MobileNetV3                       | ViT                            |
+| ------------------------------ | --------------------------------- | ------------------------------ |
+| Piirteitä tuottavat lohkot     | `features` (13 kpl)               | `encoder.layers` (12 kpl)      |
+| Viimeinen normalisointi        | (osa `features`-lohkoja)          | `encoder.ln`                   |
+| Luokittelupää                  | `classifier`                      | `heads.head`                   |
 | Luokittelupään syötteen leveys | `classifier[0].in_features` (576) | `heads.head.in_features` (768) |
 
-Nykyinen `model.py` olettaa kaikkialla MobileNetin nimet (`model.classifier`, `model.features`). ViT:llä näitä attribuutteja ei ole, joten koodi kaatuisi heti. Seuraavissa kahdessa vaiheessa nimet piilotetaan mallikuitukohtaisten apufunktioiden taakse.
+Nykyinen `model.py` olettaa kaikkialla MobileNetin nimet (`model.classifier`, `model.features`). ViT:llä näitä attribuutteja ei ole, joten koodi kaatuisi heti. Seuraavissa kahdessa vaiheessa nimet piilotetaan malliperheittäisten apufunktioiden taakse.
 
 !!! tip "Käytätkö jotain muuta mallia?"
 
-    Jos valitsit jonkin muun mallin kuin ViT:n, selvitä samalla tavalla `print(model)`-tulosteesta ja torchvisionin lähdekoodista, mitkä ovat sen piirrelohkojen ja luokittelupään attribuuttien nimet. Lisää sitten seuraavissa vaiheissa oma `case`-haaransa ViT:n rinnalle.
+    Jos valitsit jonkin muun mallin kuin ViT:n, pidä ViT mukana vertailussa, mutta lisää oma mallisi yllä mainittuun Marimo Notebookiin.
 
-### 2. `model.py`: mallikuidun valinta
+### 2. Python-koodin muokkaus
 
 Konfiguraatioon lisätään uusi avain `model.model_family`. Varsinainen malli valitaan edelleen `model.backbone`-avaimella:
 
 ```yaml
 model:
-  model_family: vit              # mobilenetv3 | vit
-  backbone: vit_b_16             # vit_b_16 | vit_b_32 | vit_l_16 | vit_l_32
+  model_family: vit # mobilenetv3 | vit | kenties-joku-sinun-valitsemasi-malli
+  backbone: vit_b_16 # vit_b_16 | vit_b_32 | vit_l_16 | vit_l_32
 ```
 
-Muokkaa tiedostoa `src/flowermodel/modelling/model.py` seuraavasti:
+Muokkaa tiedostoa `src/flowermodel/modelling/model.py`. Koodin alku löytyy alta avattavasta admonition-laatikosta, ja seuraavat osat seuraavan otsikon alla olevasta toisesta laatikosta. Koodi on siis valmiiksi sinulle toteutettu. Tärkeimmät muutokset ovat:
 
-- Luokittelupään rakentaminen siirretään omaan funktioonsa `_build_classifier_head(in_features, model_cfg)`. Pää on täsmälleen sama kuin ennenkin, mutta nyt sitä voi käyttää kumpikin malliperhe. Pää ei ole ehkä ViT:n arkkitehtuurin mukainen, mutta riittääköön tämä meille.
+- Luokittelupään rakentaminen siirretään omaan funktioonsa `_build_classifier_head(in_features, model_cfg)`.
 - Nykyinen `_build_backbone` nimetään uudelleen muotoon `_build_mobilenetv3_backbone`, ja se käyttää uutta apufunktiota.
 - Uusi funktio `_build_vit_backbone` lataa mallin samalla `models.get_model(...)`-kutsulla, lukee syötteen leveyden kohdasta `model.heads.head.in_features` ja korvaa koko `model.heads`-osan omalla päällä.
-- `build_model()` lukee mallikuidun komennolla `model_cfg.get("model_family", "mobilenetv3")` ja valitsee sen perusteella oikean rakentajan.
+- `build_model()` lukee malliperheen komennolla `model_cfg.get("model_family", "mobilenetv3")` ja valitsee sen perusteella oikean rakentajan.
 
-??? example "model.py: mallin rakentaminen"
+!!! tip
+
+    Jos olet tutkinut tarkasti luokittelupään rakennetta, huomaat, että se ei ole sama malliperheiden välillä. Alkuperäisessä ViT-mallissa ei ole laisinkaan hidden layeriä, joten se on suora MLP tokenista luokkiin. Yksinkertaisuuden vuoksi me kuitenkin liimaamme saman pään kumpaankin malliin. Jos haluat, voit toki tehdä tämän noudattaen orjallisesti mallien alkuperäistä rakennetta.
+
+??? example "model.py: mallin rakentaminen (koodi 1/2)"
 
     ```python title="src/flowermodel/modelling/model.py"
     import torch.nn as nn
@@ -159,18 +159,18 @@ Muokkaa tiedostoa `src/flowermodel/modelling/model.py` seuraavasti:
 
 Koska backbone ladataan nimen perusteella, myös esimerkiksi `vit_b_32` tai `vit_l_16` toimii pelkästään konfiguraation arvoa vaihtamalla. Koodi on kirjoitettu taaksepäin yhteensopivaksi; vanha MobileNet-konfiguraatio toimii edelleen, koska getterit käyttävät vakioarvoja.
 
-### 3. Mallikuitukohtainen hienosäätö
+### 3. Mallikohtainen hienosäätö
 
-Funktio `_apply_fine_tune_strategy` tukee kolmea strategiaa: `all`, `classifier_only` ja `last_n_layers`. Nykyinen toteutus viittaa suoraan `model.features`- ja `model.classifier`-attribuutteihin. Siirrä nämä viittaukset apufunktioon `_get_fine_tune_targets`, joka palauttaa parin (piirrelohkot, luokittelupää) mallikuidun perusteella:
+Funktio `_apply_fine_tune_strategy` tukee kolmea strategiaa: `all`, `classifier_only` ja `last_n_layers`. Nykyinen toteutus viittaa suoraan `model.xxxxx`-attribuutteihin. Nämä viittaukset siirretään apufunktioon `_get_fine_tune_targets`, joka palauttaa parin (piirrelohkot, luokittelupää) malliperheen perusteella:
 
-| `model_family` | Piirrelohkot     | Luokittelupää      |
-| -------------- | ---------------- | ------------------ |
-| `mobilenetv3`  | `model.features` | `model.classifier` |
-| `vit`          | `model.encoder.layers` | `model.heads` |
+| `model_family` | Piirrelohkot           | Luokittelupää      |
+| -------------- | ---------------------- | ------------------ |
+| `mobilenetv3`  | `model.features`       | `model.classifier` |
+| `vit`          | `model.encoder.layers` | `model.heads`      |
 
-ViT:ssä on lisäksi yksi yksityiskohta. Enkooderilohkojen jälkeen, ennen luokittelupäätä, on vielä viimeinen LayerNorm-kerros `model.encoder.ln`. Se ei kuulu `encoder.layers`-listaan, joten se jäisi `last_n_layers`-strategiassa jäädytetyksi, vaikka sen alapuolella olevia lohkoja koulutetaan. Tämän vuoksi lisätään vielä apufunktio `_get_final_norm_layers`, joka palauttaa ViT:lle `[model.encoder.ln]` ja muille tyhjän listan. MobileNetin toiminta ei siis muutu.
+ViT:ssä on lisäksi yksi yksityiskohta. Enkooderilohkojen jälkeen, ennen luokittelupäätä, on vielä viimeinen LayerNorm-kerros `model.encoder.ln`. Se ei kuulu `encoder.layers`-listaan, joten se jäisi `last_n_layers`-strategiassa jäädytetyksi. Tämän vuoksi lisätään vielä apufunktio `_get_final_norm_layers`, joka palauttaa ViT:lle `[model.encoder.ln]` ja muille tyhjän listan. MobileNetin toiminta ei siis muutu.
 
-??? example "model.py: hienosäätö"
+??? example "model.py: hienosäätö (koodi 2/2)"
 
     ```python title="src/flowermodel/modelling/model.py"
     def _get_fine_tune_targets(model: nn.Module, model_family: str) -> tuple[list[nn.Module], nn.Module]:
@@ -235,38 +235,20 @@ ViT:ssä on lisäksi yksi yksityiskohta. Enkooderilohkojen jälkeen, ennen luoki
                 )
     ```
 
-Kun vaihe 4 on tehty, voit tarkistaa REPL:ssä, montako parametria kukin strategia todella kouluttaa:
-
-```python title="Oma kone (uv run python)"
-from flowermodel.config import load_config
-from flowermodel.modelling.model import build_model
-
-cfg = load_config("configs/experiments/vit_b_16_baseline.yaml")
-cfg.device = "cpu"
-model = build_model(cfg)
-
-total = sum(p.numel() for p in model.parameters())
-trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
-print(f"{trainable:,} / {total:,}")
-```
-
-Kokeile samaa myös MobileNet-konfiguraatiolla. Tätä lukua tarvitset vaiheessa 8.
-
-### 4. Konfiguraatio `vit_b_16_baseline.yaml`
+### 4. YAML-konfiguraatio
 
 Luo uusi konfiguraatiotiedosto MobileNet-baselinen rinnalle. Se on lähes sama kuin `mobilenet_v3_small_baseline.yaml`, mutta `model`-osio on uusi, eräkoko on pienempi ja `tracking`-osion nimet on vaihdettu:
 
 ```yaml title="configs/experiments/vit_b_16_baseline.yaml"
 seed: 42
-device: auto  # auto | cpu | cuda | mps
+device: auto # auto | cpu | cuda | mps
 
 data:
-  base_dir: data/flower_photos # includes train, val, test, online subdirs
+  base_dir: data/flower_photos
   batch_size: 64
   num_workers: 6
   augmentations:
 
-    # Note: this stack MUST include the 224x224 crop in form or another!
     - name: RandomResizedCrop
       size: [224, 224]
       scale: [0.8, 1.0]
@@ -281,14 +263,14 @@ data:
       hue: 0.1
 
 model:
-  model_family: vit              # mobilenetv3 | vit
-  backbone: vit_b_16             # vit_b_16 | vit_b_32 | vit_l_16 | vit_l_32
+  model_family: vit # mobilenetv3 | vit
+  backbone: vit_b_16 # vit_b_16 | vit_b_32 | vit_l_16 | vit_l_32
   num_classes: 5
   dropout: 0.2
   hidden_dim: 1024
   fine_tune:
-    strategy: last_n_layers      # classifier_only | last_n_layers | all
-    num_layers: 2                # only used when strategy: last_n_layers; ViT-B/16 has 12 encoder blocks
+    strategy: last_n_layers # classifier_only | last_n_layers | all
+    num_layers: 2 # only used when strategy: last_n_layers
 
 loss:
   name: cross_entropy
@@ -310,12 +292,35 @@ tracking:
 
 Voit halutessasi lisätä MobileNet-konfiguraatioon rivin `model_family: mobilenetv3`. Se ei ole pakollista oletusarvon ansiosta, mutta tekee konfiguraatiosta yksiselitteisemmän.
 
+Kun vaihe 4 on tehty, voit tarkistaa REPL:ssä tai Marimossa, montako parametria kukin strategia todella kouluttaa. Huomaa, että `n_layers` vaikuttaa siis tarvittavan muistin määrään. Kun teet lokaalilla koneella savutestiä, voi olla, että sinulla ei riitä VRAM, jos `last_n_layers` ja/tai `batch_size` on liian suuri. Selvitä tarvittavien parametrien määrä ja karkea arvio muistinkäytöstä seuraavalla koodilla:
+
+```python title="Oma kone (uv run python)"
+from flowermodel.config import load_config
+from flowermodel.modelling.model import build_model
+
+cfg = load_config("configs/experiments/vit_b_16_baseline.yaml")
+cfg.device = "cpu"
+model = build_model(cfg)
+
+total = sum(p.numel() for p in model.parameters())
+trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
+print(f"{trainable:,} / {total:,}")
+
+# Karkea VRAM-arvio (FP32): painot (4 B) + koulutettavien gradientit ja Adam (12 B)
+# + väliaktivaatiot (~1.5 B per koulutettava parametri jokaista erän kuvaa kohti)
+model_gb = (total * 4 + trainable * 12) / 1e9
+act_gb = (trainable * 1.5 * cfg.data.batch_size) / 1e9
+print(f"Estimated VRAM: ~{model_gb + act_gb:.1f} GB (model: {model_gb:.2f} GB, activations: {act_gb:.2f} GB)")
+```
+
+Kokeile samaa myös MobileNet-konfiguraatiolla. Sinun tarvitsee muuttaa vain YAML:n polku.
+
 ### 5. Savutesti omalla koneella
 
-Roihun jonoon ei kannata lähettää koodia, jota ei ole kertaakaan ajettu. Käynnistä paikallinen MLflow ja aja yksi epookki:
+Roihun jonoon ei kannata lähettää koodia, jota ei ole kertaakaan ajettu. Vian etsintä on nopeampaa ja helpompaa lokaalisti. Käynnistä paikallinen MLflow ja aja yksi epookki:
 
 ```bash title="Oma kone"
-cd ~/Code/syvaoppiminen-2-2026/<nimi>/flower-model-demo
+cd ~/Code/syvaoppiminen-2-2026/missa/sinun/pyproject/on/
 just flow
 
 uv run python src/flowermodel/train.py \
@@ -331,32 +336,23 @@ uv run python src/flowermodel/train.py \
     --override training.epochs=1
 ```
 
-Savutestin tarkoitus on löytää kirjoitusvirheet, väärät attribuuttien nimet ja puuttuvat konfiguraatioavaimet. Mallin suorituskyvyllä ei ole tässä vaiheessa väliä. Tarkista MLflow:sta, että ajo valmistui ja metriikat sekä artefaktit tallentuivat.
+Savutestin tarkoitus on löytää kirjoitusvirheet, väärät attribuuttien nimet ja puuttuvat konfiguraatioavaimet. Mallin suorituskyvyllä ei ole tässä vaiheessa väliä. Tarkista MLflow:sta, että ajo valmistui ja metriikat sekä artefaktit tallentuivat. Jos sinulla on Nvidian GPU ja haluat nähdä MLflowssa muistinkäytön, tulee sinun ajaa `uv add nvidia-ml-py` ensin.
+
+Jos kaikki meni hyvin, voit kouluttaa myös ViT:n suuremmalla määrällä epookkeja. Aja ylempi komento siten, että `training.epoch` on esimerkiksi 30. Opettajan Nvidia 3060 Ti:llä aikaa menee noin 30 sekuntia per epookki, 6 minuuttia yhteensä. GPU syö noin 200 W sähköä kaiken aikaa ja VRAM:n käyttö on noin 3.8-3.9 GB. VRAM:n määrää jos kurkkaa `nvidia-smi`-komennolla, paljastuu, että sitä menee noin 2300 MiB. Aiemman skriptin arvio osio jotakuinkin oikeaan.
+
+Baselinen suoritus näyttää olevan `best/epoch=7`, `best/f1_train=0.981` ja `best/f1_val=0.947`.
 
 !!! warning
 
-    ViT-B/16 on noin 30 kertaa suurempi kuin MobileNetV3 Small, joten yksikin epookki voi kestää ilman GPU:ta pitkään. Jos paikallisen GPU:n muisti loppuu, pienennä eräkokoa komentoriviltä, esimerkiksi `--override training.epochs=1 data.batch_size=16`. Konfiguraatiotiedostoon ei tarvitse koskea.
+    Jos paikallisen koneen muisti loppuu, pienennä eräkokoa komentoriviltä, esimerkiksi `--override data.batch_size=16`. Konfiguraatiotiedostoon ei tarvitse koskea.
 
-### 6. `roihu_train.sh`: ViT-konfiguraatio
+### 6. Slurm-konfiguraatio
 
-Viikon 4 työskriptissäsi koulutus käyttää oletuskonfiguraatiota (MobileNet), ja experimentin nimi sekä mallin tallennuspolku ovat MobileNetin arvoja. Muuta skriptin viimeistä `srun`-komentoa siten, että se käyttää ViT-konfiguraatiota `--config`-argumentilla ja experimentin nimi sekä mallin polku vaihtuvat. Muu skripti pysyy ennallaan:
+Tee kopio edellisen viikon `roihu_train_mobiletnet.sh`-skriptistä ja nimeä se `roihu_train_vit.sh`. Tee tarvittavat muutokset, joihin lukeutuu ainakin:
 
-```bash title="scripts/roihu_train.sh"
-cd "$CLONE"
-srun python -m flowermodel.train \
-    --config configs/experiments/vit_b_16_baseline.yaml \
-    --override \
-    "data.base_dir=$TMPDIR/flower_photos" \
-    "tracking.url=sqlite:///$DL2_SCRATCH/mlflow/mlruns.db" \
-    "tracking.experiment_name=FlowerModel_ViT_B_16_Roihu" \
-    "tracking.best_model_path=$DL2_SCRATCH/models/vit_b_16_roihu.pth"
-```
-
-!!! tip
-
-    Jos haluat, saat toki tehdä tiedostosta kopion ja nimetä sen uusiksi.
-
-Konfiguraation polku on suhteellinen, joten sen on oltava suhteessa kloonin juureen. Siksi skripti siirtyy `cd "$CLONE"` -komennolla kloonin hakemistoon ennen koulutusta.
+- Konfiguraation vaihto `configs/experiments/vit_b_16_baseline.yaml`-tiedostoon
+- Experimentin nimen vaihto `FlowerModel_ViT_B_16_Roihu`-arvoksi
+- Mallin tallennuspolun vaihto `$DL2_SCRATCH/models/vit_b_16_roihu.pth`-arvoksi
 
 ### 7. Koulutus Roihussa
 
@@ -372,50 +368,30 @@ git push
 Kirjaudu Roihuun SSH:lla, päivitä klooni ja lähetä ViT-koulutus jonoon:
 
 ```bash title="CSC Roihu"
-cd $DL2_PROJ/04_flower_at_roihu/<nimi>
+cd $DL2_PROJ/missa-sinun/git/repo/on
 git pull
 
-cd flower-model-demo
-sbatch scripts/roihu_train.sh
-squeue --me
+cd flower-model-demo-tai-mika-hakemiston-nimi-onkaan
+sbatch scripts/roihu_train_vit.sh
+# Aja squeue --me, tail -f slurm-<jobid>.out jne.
 ```
 
-Työ käyttää edelleen `gputest`-partitiota. Baseline-konfiguraation 15 epookkia mahtuvat sen aikarajaan. Ensimmäisellä kerralla työ lataa ViT:n painot `TORCH_HOME`-hakemistoon `/scratch`-levyalueelle, ja myöhemmät ajot käyttävät ladattuja painoja.
+Ensimmäisellä kerralla työ lataa ViT:n painot `TORCH_HOME`-hakemistoon `/scratch`-levyalueelle, ja myöhemmät ajot käyttävät ladattuja painoja.
 
-Kun työ on valmis, tarkastele sitä tutuilla komennoilla (`seff`, `sacct`) ja lue tuloste `slurm-<jobid>.out`. Jos työ kaatuu, vertaa virheilmoitusta paikalliseen savutestiin. Ero johtuu todennäköisesti Roihu-kohtaisesta asiasta, kuten polusta tai ympäristömuuttujasta, eikä mallin koodista.
+Työ käyttää edelleen `gputest`-partitiota. Baseline-konfiguraation 15 epookkia mahtuvat sen aikarajaan. Itse asiassa 15 epookkia mahtuu tähän rajaan yllättävän helposti: ViT kouluttautui CSC:n raudalla hitusen reilussa minuutissa! GPU söi sähköä yli 500 wattia koulutuksen läpi ja muistinkäyttö näyttää samaa kuin kotiraudalla.
 
-### 8. Tulokset ja vertailu
+Jos työ kaatuu, tutki virheilmoitusta `slurm-<jobid>.out`-tiedostosta. Todennäköisin syy on jokin typo tai väärä polku, jos savutesti toimi lokaalisti.
 
-Avaa Roihun MLflow-sovellus kuten viikolla 4. Experimentin `FlowerModel_ViT_B_16_Roihu` alta pitäisi löytyä ajo.
-
-Tavoitteena on, että ViT-mallin **`best/f1_val` on 95 % tai parempi**. Jos baseline ei yllä tähän, säädä hyperparametreja. Säädettäviä ovat esimerkiksi:
-
-- `model.fine_tune.strategy` ja `model.fine_tune.num_layers`: kuinka suuri osa enkooderista koulutetaan.
-- `optimizer.lr` ja `optimizer.weight_decay`.
-- `model.dropout` ja `model.hidden_dim`.
-- `loss.label_smoothing`.
-- `training.epochs`.
-
-Esikoulutetun mallin hienosäätöön pätee nyrkkisääntö: mitä suurempi osa backbonesta avataan koulutettavaksi, sitä varovaisemmin painoja kannattaa muuttaa. Oikeat arvot sinun tulee kuitenkin löytää kokeilemalla. Kokeiluja voi tehdä joko luomalla uusia konfiguraatiotiedostoja tai käyttämällä `--override`-mekanismia. Muista kuitenkin, että konfiguraatiotiedoston tulee kertoa, millä arvoilla lopullinen malli on koulutettu.
-
-Kun tavoite on saavutettu, vertaa ViT:tä Roihussa koulutettuun MobileNetiin:
-
-- F1-metriikat validointi- ja testidatalla.
-- Koulutuksen kesto (`sacct` tai MLflow).
-- Koulutettavien parametrien määrä (ks. vaihe 3).
-
-Pohdi, onko F1-metriikan parannus kustannusten arvoinen. Ota huomioon myös vaiheessa 1 näkemäsi koko ja se, että viikolla 1 käytetty selaininferenssi ajaa mallia käyttäjän omalla laitteella.
-
-### 9. Oppimisnopeuden ajastin (valinnainen)
+### 8. Oppimisnopeuden ajastin (valinnainen)
 
 !!! tip
 
-    Tämä tehtävä on valinnainen, syventävä lisätehtävä, jolla on ainoastaan arvosanaa korottava vaikutus.
+    Tämä tehtävä on valinnainen, syventävä lisätehtävä, jolla on ainoastaan arvosanaa korottava vaikutus. Jos et tee tätä, hyppää suoraan seuraavaan kohtaan eli mallin hienosäätöön.
 
-Tähän asti oppimisnopeus on pysynyt koko koulutuksen ajan vakiona. Transformer-malleja hienosäädettäessä on tavallista käyttää ajastinta (*engl. learning rate scheduler*), joka muuttaa oppimisnopeutta koulutuksen aikana. Toteutetaan ajastin, jossa on kaksi vaihetta:
+Tähän asti oppimisnopeus on pysynyt koko koulutuksen ajan vakiona (jos unohdetaan Adam-optimoijan parametrikohtaiset skaalaukset). Transformer-malleja hienosäädettäessä on tavallista käyttää ajastinta (_engl. learning rate scheduler_), joka muuttaa oppimisnopeutta koulutuksen aikana. Toteutetaan ajastin, jossa on kaksi vaihetta:
 
-1. **Lämmittely** (*engl. warmup*): oppimisnopeus alkaa 1 %:sta perusarvosta ja kasvaa lineaarisesti perusarvoon `warmup_epochs` epookin aikana.
-2. **Kosinilasku** (*engl. cosine decay*): loppuepookkien aikana oppimisnopeus laskee kosinikäyrän mukaisesti arvoon `eta_min`.
+1. **Lämmittely** (_engl. warmup_): oppimisnopeus alkaa 1 %:sta perusarvosta ja kasvaa lineaarisesti perusarvoon `warmup_epochs` epookin aikana.
+2. **Kosinilasku** (_engl. cosine decay_): loppuepookkien aikana oppimisnopeus laskee kosinikäyrän mukaisesti arvoon `eta_min`.
 
 Ajastinta päivitetään kerran epookissa. Konfiguraatiossa ajastin on `optimizer`-osion alla:
 
@@ -425,14 +401,16 @@ optimizer:
   lr: 1.0e-3
   weight_decay: 0.0
   scheduler:
-    name: cosine                 # none | cosine
+    name: cosine # none | cosine
     warmup_epochs: 2
     eta_min: 1.0e-6
 ```
 
 Muutoksia tarvitaan kolmeen tiedostoon. Kaikki muutokset ovat taaksepäin yhteensopivia: konfiguraatio, jossa ei ole `scheduler`-osiota, kouluttaa vakio-oppimisnopeudella kuten ennenkin.
 
-**`src/flowermodel/modelling/optim.py`.** `build_optimizer()` välittää kaikki `optimizer`-osion avaimet `name`-avainta lukuun ottamatta optimoijalle. Adam ei tunne `scheduler`-argumenttia, joten se pitää poistaa ennen optimoijan luontia:
+#### A: optim.py
+
+Metodi `build_optimizer()` (`src/flowermodel/modelling/optim.py`) välittää kaikki `optimizer`-osion avaimet `name`-avainta lukuun ottamatta optimoijalle. Tämä ei ehkä ole aivan paras tapa abstrahoida optimoijan alustusta, mutta pidetään koodimuutokset yksinkertaisina ja korjataan koodi helpoimman kautta. Adam ei tunne `scheduler`-argumenttia, joten se pitää poistaa ennen optimoijan luontia:
 
 ```python title="src/flowermodel/modelling/optim.py"
     opt_kwargs = dict(optimizer_cfg)
@@ -497,9 +475,21 @@ Lisää samaan tiedostoon uusi funktio `build_scheduler`. Funktio käyttää PyT
                 )
     ```
 
-**`src/flowermodel/modelling/training.py`.** `Trainer` saa uuden valinnaisen argumentin `scheduler: optim.lr_scheduler.LRScheduler | None = None`, joka tallennetaan `self.scheduler`-attribuuttiin. `fit()`-metodissa ajastinta askelletaan kerran epookin lopussa validoinnin ja parhaan mallin tarkistuksen jälkeen, ja sen hetkinen oppimisnopeus kirjataan MLflow:iin:
+#### B: training.py
+
+Luokka `Trainer` (`src/flowermodel/modelling/training.py`) saa uuden valinnaisen argumentin `scheduler: optim.lr_scheduler.LRScheduler | None = None`, joka tallennetaan `self.scheduler`-attribuuttiin. Alla on kuva madaltamasta kynnystä ryhtyä tähän hommaan.
+
+![](../images/05-scheduler-changes-to-Trainer.png)
+
+**Kuva 1:** _Muutokset Trainer-luokkaan ja sen init-metodiin._
+
+Lisäksi `fit()`-metodissa ajastinta askelletaan kerran epookin lopussa validoinnin ja parhaan mallin tarkistuksen jälkeen, ja sen hetkinen oppimisnopeus kirjataan MLflow:iin:
 
 ```python title="src/flowermodel/modelling/training.py"
+            # Olemassa oleva koodi, jonka alle se tulee, on...
+            # if val_f1 > self.best_val_f1:
+            #   ...
+
             if self.scheduler is not None:
                 self.scheduler.step()
                 self.tracker.log_metric(
@@ -507,61 +497,116 @@ Lisää samaan tiedostoon uusi funktio `build_scheduler`. Funktio käyttää PyT
                 )
 ```
 
-**`src/flowermodel/train.py`.** Ajastin rakennetaan optimoijan jälkeen ja annetaan `Trainer`-luokalle:
+#### C: train.py
+
+Viimeinen muokattava tiedosto on `src/flowermodel/train.py` eli varsinainen ajuriskripti. Ajastin rakennetaan optimoijan jälkeen ja annetaan `Trainer`-luokalle:
 
 ```python title="src/flowermodel/train.py"
-from flowermodel.modelling.optim import build_loss, build_optimizer, build_scheduler
+from flowermodel.modelling.optim import ..., build_scheduler
 
 # ...
-    optimizer = build_optimizer(cfg, model)
+    # Tämän rivin alle, siis:
+    # optimizer = build_optimizer(...)
     scheduler = build_scheduler(cfg, optimizer)
 
 # ...
-        trainer = Trainer(model, optimizer, loss, cfg=cfg, tracker=tracker, scheduler=scheduler)
+        # Ja pieni lisäys tähän riviin.
+        trainer = Trainer(..., scheduler=scheduler)
 ```
 
-Savutestaa muutos paikallisesti muutaman epookin ajolla ja tarkista MLflow:sta, että `train/lr`-käyrä näyttää odotetulta. Kouluta sitten Roihussa ViT ajastimen kanssa ja vertaa tulosta vakio-oppimisnopeudella koulutettuun ajoon.
+#### Savutestaus
 
-Selvitä:
+Testaa muutos paikallisesti muutaman epookin ajolla ja tarkista MLflow:sta, että `train/lr`-käyrä näyttää odotetulta. Kouluta sitten Roihussa ViT ajastimen kanssa ja vertaa tulosta vakio-oppimisnopeudella koulutettuun ajoon. Savutestauksen voit käynnistää overriden avulla näin:
 
-- Miksi `warmup_epochs` ja `eta_min` poistetaan (`pop`) sanakirjasta, vaikka niitä ei välitetä minnekään?
-- Miksi esikoulutettua mallia hienosäädettäessä alkuun voi olla hyödyllistä käyttää pientä oppimisnopeutta, vaikka luokittelupää on alustettu satunnaisesti?
+```bash title="Oma kone"
+uv run python src/flowermodel/train.py \
+  --config configs/experiments/vit_b_16_scheduler.yaml \
+  --override training.epochs=3
+```
 
-### 10. FirecREST ja Justfile (valinnainen)
+Testaa, että myös vanha konfiguraatio on ajettavissa ilman ongelmia. Vaihda yllä olevasta komennosta YAML:n polku ja aja esimerkiksi vain 1 epookki. Voit testata sekä ViT että MobileNet-konfiguraatiot varmuuden vuoksi.
+
+### 9. Mallin hienosäätö
+
+Tavoitteena on, että ViT-mallin **`best/f1_val` on 95 % tai parempi**. Älä kuitenkaan tyydy helppoon ratkaisuun, vaan käytä hieman aikaa kokeillaksesi, miten eri hyperparametrit vaikuttavat mallin suorituskykyyn.
+
+Jos toteutit kohdan 8, voit myös kokeilla ajastimen hyperparametreja `optimizer.scheduler.warmup_epochs` ja `optimizer.scheduler.eta_min`.
+
+Esikoulutetun mallin hienosäätöön pätee nyrkkisääntö: mitä suurempi osa backbonesta avataan koulutettavaksi, sitä varovaisemmin painoja kannattaa muuttaa. Tämän kenties olet jo itse huomannut MobileNetiä koulutttaessa. Oikeat arvot sinun tulee kuitenkin löytää kokeilemalla. Kokeiluja voi tehdä joko muokkaamalla konfiguraatiotiedostoa tai käyttämällä `--override`-mekanismia. 
 
 !!! tip
 
-    Tämä tehtävä on valinnainen, syventävä lisätehtävä, jolla on ainoastaan arvosanaa korottava vaikutus.
+    Huomannet, että Roihun kanssa override on sinänsä helpompi, että sinun ei tarvitse tehdä uutta committia joka kerta, kun haluat kokeilla uutta hyperparametriyhdistelmää.
 
-Jos teit viikolla 4 FirecREST-osuuden, huomaat, että `just roihu-submit` lähettää aina skriptin `scripts/roihu_train.sh` oletusarvoilla, eli se kouluttaa MobileNetin. Laajenna reseptiä siten, että sillä voi käynnistää myös ViT-koulutuksen. Tähän ei anneta valmista ratkaisua, mutta tässä on muutama vinkki:
+    Suuremman mallin kanssa tämä voisi olla myös haluttu ominaisuus! Git branchin ja commitin voisi sitoa MLflow-ajoihin metadatan avulla. Commit message voisi tällöin sisältää hyperparametrien arvojen perusteluita. Ei ole yhtä oikeaa tapaa hoitaa MLOpsia; kussakin projektissa tulee arvioida, mikä on järkevintä kyseisen projektin kannalta.
 
-- Tutki, mitä `roihu-submit`-reseptin `payload`-sanakirjan `env`-kenttä jo nyt välittää työlle. Samaa reittiä voi välittää myös muita muuttujia.
-- Just-resepti voi ottaa parametreja (ks. `roihu-log lines="100"`), ja reseptin Python-koodi näkee paikallisen shellin ympäristömuuttujat `os.environ`-sanakirjassa.
-- Kun arvo lähetetään omalta koneeltasi, Roihun shell ei laajenna sen sisältämiä muuttujia. Esimerkiksi merkkijono `$DL2_SCRATCH/models/vit.pth` päätyisi skriptille sellaisenaan. Mieti, miten polku kannattaa tällöin antaa.
-- Kaikkien ajojen tuloste kirjoitetaan samaan `slurm-flower.out`-tiedostoon. Mieti, onko tämä ongelma.
+Kun tavoite on saavutettu, vertaa ViT:tä Roihussa koulutettuun MobileNetiin:
+
+- F1-metriikat validointi- ja testidatalla.
+- Koulutuksen kesto.
+- Koulutettavien parametrien määrä (ks. työvaihe 4).
+
+Pohdi, onko F1-metriikan parannus kustannusten arvoinen. Ota huomioon myös vaiheessa 1 näkemäsi koko ja se, että viikolla 1 käytetty selaininferenssi ajaa mallia käyttäjän omalla laitteella.
+
+!!! note
+
+    Opettaja saavutti seuraavat tulokset käyttämättä scheduleria:
+
+    * `best/f1_train=0.996`
+    * `best/f1_val=0.969`
+    * `test/F1Score=0.963`
+
+    Seuraavat tulokset saavutettiin schedulerin kera:
+
+    * `best/f1_train=0.997`
+    * `best/f1_val=0.970`
+    * `test/F1Score=0.966`
+    
+    Schedulerin hyperparametrejä ei säädetty erikseen, mutta muita hyperparametrejä tuunattiin.
 
 ## Videolla esitettävä
 
-1. Esittele ViT:n rakenne lyhyesti ja vertaa sitä MobileNetiin.
-    - Kerro, mitä tarkoittavat patch, token ja luokkatoken, ja montako tokenia 224 × 224 -kuvasta syntyy.
-    - Näytä `print(model)`-tulosteesta, missä ovat ViT:n enkooderilohkot, viimeinen LayerNorm ja luokittelupää.
+1. Esittele muutokset koodiin.
+    - Näytä `model.py`-tiedostosta, miten malliperhe valitaan.
+    - Näytä `vit_*.yaml` konfiguraatiot 
+    - Näytä `roihu_train_vit.sh`-skriptin sisältö.
+    - Jos tuunasit muuta mallia kuin ViT:ä, näytä samat konfiguraatiot soveltuvilta osin.
 
-2. Esittele muutokset koodiin.
-    - Näytä `model.py`-tiedostosta, miten mallikuitu valitaan ja miten hienosäätö toimii kummallekin mallikuidulle.
-    - Perustele, miksi `model_family` luetaan oletusarvon kanssa ja miksi `encoder.ln` otetaan mukaan `last_n_layers`-strategiaan.
-    - Näytä `vit_b_16_baseline.yaml` ja `roihu_train.sh`-skriptin muutettu `srun`-komento.
+2. Aja paikallinen savutesti sekä ViT- että MobileNet-konfiguraatiolla.
+    - Yksi epookki riittää.
+    - Batch size saa olla pieni.
 
-3. Näytä paikallinen savutesti sekä ViT- että MobileNet-konfiguraatiolla.
+3. Käynnistä ViT-koulutus `sbatch`-komennolla. Tarkastele valmistunutta työtä `seff`-komennolla.
 
-4. Näytä, miten koodi päätyy Roihuun, ja lähetä ViT-koulutus `sbatch`-komennolla. Tarkastele valmistunutta työtä `seff`-komennolla.
+4. Esittele hyperparametrien hienosäädön tulokset.
+    - Kommentoit lyhyesti, mitä hyperparametreja päädyit säätämään ja miksi.
+    - Näytät MLflow:ssa vähintään 5 eri runia eri hyperparametreilla yleisnäkymässä.
 
-5. Näytä ajo Roihun MLflow-sovelluksessa ja osoita, että `best/f1_val` on vähintään 95 %.
-    - Kerro, mitä hyperparametreja säädit ja miksi.
+5. Esittelet tarkemmin vähintään yhden runin.
+    - Näytät parametrit, ja
+    - metriikat (F1, hämmennysmatriisi)
 
-6. Esittele ViT:n ja MobileNetin vertailu: F1-metriikat, koulutuksen kesto ja koulutettavien parametrien määrä. Pohdi, kumpaa mallia käyttäisit ja missä tilanteessa.
+6. Vertaile ViT:n ja MobileNetin mallien suhteen:
+    - Koulutuksen kestoa
+    - Koulutettavien parametrien määrä (mielellään Marimo Notebookissa)
+    - Pohdi, onko F1-metriikan parannus kustannusten arvoinen.
 
-7. (Valinnainen) Näytä oppimisnopeuden ajastimen toteutus, `train/lr`-käyrä MLflow:ssa ja vertailu vakio-oppimisnopeudella koulutettuun ajoon.
-
-8. (Valinnainen) Käynnistä ViT-koulutus `just roihu-submit` -komennolla ja selitä, miten muutit reseptiä.
+7. (Valinnainen) Näytä oppimisnopeuden ajastimen toteutus. Näytä myös `train/lr`-käyrä MLflow:ssa. Jos tutustuit aiheeseen syvemmin, kuvaile ajastamisen logiikkaa ja sen vaikutusta koulutukseen.
 
 Kokonaisuutena videosta tulee ilmetä, että osaat vaihtaa koulutusprojektin backbonen suurempaan malliin rikkomatta aiempia konfiguraatioita tai checkpointeja. Ymmärrät, miksi muutokset testataan ensin paikallisesti ennen supertietokoneen resurssien käyttöä, ja osaat ajaa saman koodin Roihussa eri konfiguraatioilla ilman, että työskripti haarautuu.
+
+## Yhteenveto
+
+Tähän viikkoon loppuu `flower-model`:n matka tällä kurssilla. Seuraavissa viikoissa käsittelemme muita malleja ja todennäköisesti ajamme koodin yksinkertaisimmalla mahdollisella tavalla, kuten siirtämällä koodia `scp`:n avulla Roihuun. Tämä tehdään, jotta voimme keskittyä muihin asioihin kuin koulutuksen konfiguraatioon (esim. parallelismiin).
+
+Toivon mukaan sinulla on nyt konfiguraatiovetoisesta kouluttamisesta ja MLOpsista ajatusmalli, jota voit soveltaa tulevissa projekteissasi. Tässä esitelty lähestymistapa on yksinkertainen ja itse koodattu toimimaan hyvin suppean mallivalikoiman kanssa. Käytännön projektissa saatat käyttää jotakin valmista viitekehystä. Yksi valmiista vaihtoehdoista, [LightningCLI](https://lightning.ai/docs/pytorch/stable/cli/lightning_cli.html) tiivistää konfiguraatiovetoisen kouluttamisen käytänteet näin:
+
+> "When running deep learning experiments, there are a couple of good practices 
+> that are recommended to follow:
+> 
+> * Separate configuration from source code
+> * Guarantee reproducibility of experiments
+>
+> -- Lightning.ai
+
+Käytit sitten valmista tai teit itse, konfiguraatiovetoisen kouluttamisen periaatteet ja hyödyt pysyvät. Ethän rakenna tuotantoon menevää mallia siten, että sinulla on hakemistollinen Jupyter Notebookeja, jotka ovat täynnä kaoottista, toisintamatonta ja vaikeasti ylläpidettävää koodia.
