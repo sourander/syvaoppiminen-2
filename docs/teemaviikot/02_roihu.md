@@ -2,7 +2,7 @@
 
 On kovin tyypillistä, että koneoppimismalleja koulutetaan järjestelmällä, jossa ei ole graafista käyttöliittymää, ja joka voi olla monimutkainen ja vieras. Tämä viikko tutustuttaa sinut yhteen tällaiseen ympäristöön.
 
-Tällä kurssilla käytetään CSC:n ympäristöä ja erityisesti Roihu-supertietokonetta. Keskeinen opetusmateriaali on CSC:n virallinen dokumentaatio, ja erityisesti koulutusmateriaali [CSC Computing Environment](https://csc-training.github.io/csc-env-eff/). Myös [Roihu disk areas](https://docs.csc.fi/computing/roihu-disk/) ja [Lustre file system](https://docs.csc.fi/computing/lustre/ ovat tärkeitä lähteitä). Tämän ensimmäisen viikon aihepiiriin kuuluuvat **CSC Computing Environment**-materiaalista:
+Tällä kurssilla käytetään CSC:n ympäristöä ja erityisesti Roihu-supertietokonetta. Keskeinen opetusmateriaali on CSC:n virallinen dokumentaatio, ja erityisesti koulutusmateriaali [CSC Computing Environment](https://csc-training.github.io/csc-env-eff/). Myös [Roihu disk areas](https://docs.csc.fi/computing/roihu-disk/) ja [Lustre file system](https://docs.csc.fi/computing/lustre/) ovat tärkeitä lähteitä. Tämän ensimmäisen viikon aihepiiriin kuuluuvat **CSC Computing Environment**-materiaalista:
 
 -   Basics:
     - CSC account and project
