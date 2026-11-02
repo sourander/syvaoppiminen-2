@@ -13,7 +13,7 @@ Tällä kurssilla käytetään CSC:n ympäristöä ja erityisesti Roihu-supertie
 -   Module system:
     - Modules in Roihu
 
-Lisäksi tutustutaan Roihun myötä tulleisiin muutoksiin, joista yksi tärkeimmistä on `ProjData`-levyalue. Entisten `Home`, `ProjAppl` ja `Scratch` -alueiden rinnalle on tullut `ProjData`, joka on tarkoitettu projektien hallinnoimien datasettien jakamiseen. Roihu Dataset -konseptissa datasetille voidaan luoda MyCSC-palvelussa erillinen Dataset Project. Kurssin opiskelijoilla on omat Student Projectinsa, mutta yhteistä aineistoa ei ole järkevää kopioida erikseen jokaisen opiskelijaprojektin levyalueelle. Dataset Project mahdollistaa aineiston hallitun jakamisen useiden projektien käyttöön.
+Lisäksi tutustutaan Roihun myötä tulleisiin muutoksiin, joista yksi tärkeimmistä on Roihu Dataset -projekti (alkuperäiseltä, wanhalta nimeltään `ProjData`-levyalue). Entisten `Home`, `ProjAppl` ja `Scratch` -alueiden rinnalle on tullut `/dataset/<dataset-project-id>`, joka on tarkoitettu projektien hallinnoimien datasettien jakamiseen. Datasetille voidaan siis luoda MyCSC-palvelussa erillinen Dataset Project. Kurssin opiskelijoilla on omat Student Projectinsa, mutta yhteistä aineistoa ei ole järkevää kopioida erikseen jokaisen opiskelijaprojektin levyalueelle. Dataset Project mahdollistaa aineiston hallitun jakamisen useiden projektien käyttöön.
 
 SSH:n suhteen uutta on vaatimus, että sinulla on signed SSH key, joka on rekisteröity MyCSC:hen. Lue tästä tarkemmin [Setting up SSH keys](https://docs.csc.fi/computing/connecting/ssh-keys/#signing-public-key)-ohjeesta. Roihussa on uutta edellisiin verrattuna myös se, että CPU ja GPU noodeille on omat erilliset login-nodet.
 
@@ -257,7 +257,7 @@ ssh roihu-gpu
     -   Tulostat nykyisen työskentelyhakemiston.
     -   Ajat komennont `csc-projects`.
     -   Esittelet keskeiset levyalueet. Navigoi kuhunkin `cd`-komennolla.
-    -   Esittelet `ProjData`-levyalueen käyttötarkoituksen.
+    -   Esittelet `ProjData`-levyalueen (eli Roihu Dataset) käyttötarkoituksen.
     -   Näytät MyCSC-palvelussa, mistä uusi Dataset Project luotaisiin. Sinun ei tarvitse luoda projektia, vaikka sinulla saattaakin olla oikeudet siihen.
     -   Lataat `flower_photos.tgz`-tiedoston kotihakemistoosi, tarkistat että se latautu oikein, ja poistat sen lopuksi. Voit ladata käyttäen sen joko:
         - CSC Allas -palvelua (esim. `curl` tai `s3cmd`), tai
