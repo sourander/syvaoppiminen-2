@@ -6,18 +6,18 @@ Tarkemmin viikon aihe on Slurm-jonojärjestelmä. Opitaan, miten Slurm toimii ja
 
 Opetusmateriaalia ovat:
 
-- Viime viikolta tuttu [CSC Computing Environment](https://csc-training.github.io/csc-env-eff/). Tarkemmin nämä sivut:
+-   Viime viikolta tuttu [CSC Computing Environment](https://csc-training.github.io/csc-env-eff/). Tarkemmin nämä sivut:
     - (5.1) Batch job tutorial - Serial jobs
     - (6.1) Using sacct and seff to understand resource usage of finished jobs
     - (6.2) Get an overview of the resource usage of recent jobs
-- CSC:n Running jobs -ohjeet: [Computing > Running jobs](https://docs.csc.fi/computing/running/getting-started/).
-- Slurm-dokumentaatio: https://slurm.schedmd.com/documentation.html
+-   CSC:n Running jobs -ohjeet: [Computing > Running jobs](https://docs.csc.fi/computing/running/getting-started/).
+-   Slurm-dokumentaatio: https://slurm.schedmd.com/documentation.html
 
 ## Koulutettava malli
 
 MNIST:n koulutukseen riittää seuraava, hyvin lyhyt skripti:
 
-```python title="lenet_mnist.py"
+``` python title="lenet_mnist.py"
 import os
 import torch
 import torch.nn as nn
@@ -85,7 +85,7 @@ for epoch in range(10):
     print(f"Epoch {epoch+1}: accuracy = {100 * correct / total:.2f}%")
 ```
 
-Yllä olevassa skriptissä on käytössä `TMPDIR`-ympäristömuuttuja, johon sinun kannattaa perehtyä huolella. Kyseessä on Roihun uusi ominaisuus (ks [Available batch job partitions > Local storage on Roihu nodes](https://docs.csc.fi/computing/running/batch-job-partitions/#local-storage-on-roihu-nodes)). Edellisessä Puhti-supertietokoneessa piti erikseen pyytää Slurm-jobissa varaus nvme-levytilasta, jonka lokaatio tallentui `LOCAL_SCRATCH`-ympäristömuuttujaan. Roihussa on käytössä `TMPDIR`, joka on automaattisesti saatavilla; tarpeen mukaan on mahdollista pyytää myös `LOCAL_SCRATCH`-tilaa, mutta tämä on sallittua vain suurimmilla partitioilla. Tarkista dokumentaatiosta, kuinka monta gigaa levytilaa on käytettävissä. 
+Yllä olevassa skriptissä on käytössä `TMPDIR`-ympäristömuuttuja, johon sinun kannattaa perehtyä huolella. Kyseessä on Roihun uusi ominaisuus (ks [Available batch job partitions > Local storage on Roihu nodes](https://docs.csc.fi/computing/running/batch-job-partitions/#local-storage-on-roihu-nodes)). Edellisessä Puhti-supertietokoneessa piti erikseen pyytää Slurm-jobissa varaus nvme-levytilasta, jonka lokaatio tallentui `LOCAL_SCRATCH`-ympäristömuuttujaan. Roihussa on käytössä `TMPDIR`, joka on automaattisesti saatavilla; tarpeen mukaan on mahdollista pyytää myös `LOCAL_SCRATCH`-tilaa, mutta tämä on sallittua vain suurimmilla partitioilla. Tarkista dokumentaatiosta, kuinka monta gigaa levytilaa on käytettävissä.
 
 Kannattaa myös selvittää, millaisissa aineistoissa solmukohtaisesta tallennustilasta on hyötyä ja miksi esimerkiksi suurta määrää pieniä tiedostoja ei yleensä kannata käsitellä suoraan jaetulla`/scratch`-levyalueelta. Tämä selitetään hyvinkin ymmärrettävällä tavalla FAQ-artikkelissa [Which directory should I use to analyze many small files?](https://docs.csc.fi/support/faq/local_scratch_for_data_processing/).
 
@@ -97,37 +97,47 @@ Kannattaa myös selvittää, millaisissa aineistoissa solmukohtaisesta tallennus
 
 En anna valmista skriptiä, vaan sinun tulee itse kirjoittaa Slurm-työskripti, joka suorittaa yllä olevan `lenet_mnist.py`-koulutuksen. Tutustu CSC:n dokumentaatioon ja Slurm-dokumentaatioon, ja kirjoita oma Slurm-työskripti.
 
-TODO! Tähän tulee CSC:n Slurm-tutoriaaliin linkki, kunhan se on julkaistu Noppe-palvelussa.
+Tutustu Slurmiin CSC Noppe -tutoriaalissa. Tämä on turvallinen, kontittettu ympäristö, jossa voit kokeilla Slurm-komentoja ilman pelkoa, että vahingossa häiritset muiden työjonoja. Se löytyy kirjautumalla HAKA-tunnuksilla <https://noppe.rahtiapp.fi/> -palveluun.
 
 Jos CSC:n dokumentaatiossa mainitut MPI, OpenMPI ja muut herättävät kiinnostusta, voimme keskustella näistä aiheista kurssin Iltanuotioilla.
 
+## Bonus: Aliakset
+
+Jos huomaat, että osa Slurmiin liittyvistä komennoista on hankalia muistaa tai liian pitkiä kirjoittaa, voit luoda itsellesi aliaksia. Nämä voi asettaa `~/.bashrc`-tiedostoon. Alla lyhyt esimerkki:
+
+``` bash
+# ... muu sisältö ...
+alias q='squeue --me'
+alias sac='sacct -u $USER -o jobid,jobname,partition,end,ntasks,state,comment| (sed -u 2q ; tail -n 5)'
+```
+
 ## Videolla esitettävä
 
-1. Kerro lyhyesti, mikä Slurm on ja mihin sitä käytetään HPC-ympäristössä.
+1.  Kerro lyhyesti, mikä Slurm on ja mihin sitä käytetään HPC-ympäristössä.
 
-2. Esittele laatimasi Slurm-työskripti.
- 
+2.  Esittele laatimasi Slurm-työskripti.
+
     - Selitä työn laskutusprojekti, partitiovalinta, aikaraja ja GPU-varaus.
     - Näytä, miten tarvittava ohjelmistoympäristö ladataan.
     - Osoita `srun`-komento, joka käynnistää Python-ohjelman.
 
-3. Siirrä koulutusskripti ja Slurm-työskripti Roihulle.
+3.  Siirrä koulutusskripti ja Slurm-työskripti Roihulle.
     - Luo `lenet_mnist.py` paikallisella koneellasi.
     - Kopioi tiedostot Roihulle `scp`- tai `rsync`-komennolla.
     - Näytä tiedostojen sijainti Roihussa ja perustele valinta lyhyesti.
 
-4. Lähetä työ jonoon `sbatch`-komennolla ja ota talteen komennon
-   palauttama job ID.
+4.  Lähetä työ jonoon `sbatch`-komennolla ja ota talteen komennon
+    palauttama job ID.
 
-5. Seuraa työn tilaa `squeue`-komennolla.
+5.  Seuraa työn tilaa `squeue`-komennolla.
     - Jos työ on jo valmistunut, selitä, miksi se ei enää näy
-        `squeue`-tulosteessa.
+      `squeue`-tulosteessa.
 
-6. Tarkastele valmistuneen työn tietoja `sacct`- ja `seff`-komennoilla.
+6.  Tarkastele valmistuneen työn tietoja `sacct`- ja `seff`-komennoilla.
     - Tulkkaa lyhyesti ainakin työn tila, suoritusaika ja resurssien käyttö.
 
-7. Näytä työn tuottama `slurm-<jobid>.out`-tiedosto sekä mahdollinen
-   erillinen virhetiedosto.
+7.  Näytä työn tuottama `slurm-<jobid>.out`-tiedosto sekä mahdollinen
+    erillinen virhetiedosto.
     - Osoita tulosteesta, että PyTorch havaitsi CUDA-GPU:n.
     - Osoita, että koulutus valmistui ja tuotti järkevän tarkkuuden.
 
