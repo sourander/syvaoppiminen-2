@@ -1,11 +1,9 @@
 [project]
-variant = "modern"
 site_name = "Syväoppiminen II"
 site_url = "https://sourander.github.io/syvaoppiminen-2/"
 site_author = "Jani Sourander"
 repo_name = "sourander/syvaoppiminen-2"
 repo_url = "https://github.com/sourander/syvaoppiminen-2"
-language = "fi"
 
 copyright = """
 Copyright &copy; 2026 <a href="https://www.kamk.fi">Kajaanin Ammattikorkeakoulu Oy</a>.
@@ -24,6 +22,8 @@ extra_javascript = [
 
 # Theme
 [project.theme]
+variant = "modern"
+language = "fi"
 features = [
   "content.code.annotate",      # Code annotation
   "content.code.copy",          # Copy code button
