@@ -24,7 +24,120 @@ Se, kannattaako mallille antaa vain parempi konteksti RAG-tyylisiä ratkaisuja, 
 Me ollaan täällä kuitenkin oppimassa hienosäätöä, joten unohdetaan toistaiseksi se, onko tässä mitään järkeä, ja hienosäädetään malli. Käyttämämme metodi on PEFT (Parameter-Efficient Fine-Tuning), joka mahdollistaa mallin hienosäädön ilman, että koko mallia tarvitsee kouluttaa uudelleen -- vain lisätyt parametrit koulutetaan. Perinteisessä PEFT:ssä malliin lisätään parametrejä, joten mallin inferenssinopeus hidastuu [^huyenAIEngineering]. PEFT-metodeista käytetyimmäksi Chip mainitsee LoRA:n (Low-Rank Adaptation), mutta muitakin löytyy, kuten QLoRA (Quantized Low-Rank Adaptation), DoRA (Direction and Magnitude Decomposition), LoftQ (Quantization-Aware LoRA Initialization) [^nicoleTransformers]. Tutustu ihmeessä ainakin pintapuolisesti Hu et al. paperiin [LoRA: Low-Rank Adaptation of Large Language Models](https://arxiv.org/abs/2106.09685). Avuksi voit ottaa Paper Explained -kanavan videon [
 LoRA Explained Visually](https://youtu.be/DfYNsH3xK1Y?si=zEgG0685hJLYeqFC).
 
-## LoRA todiste
+## Työvaiheet
+
+### 1: LoRA-todiste
+
+Tutustu siihen, kuinka LoRA toimii. Tähän on hyvä apu Nicole Koenigsteinin kirjassa _Transformers in Action_. Alla on Marimo Notebook, joka myötäilee kirjan luvun 8 esimerkkiä.
+
+``` python title="lora_proof.py"
+# /// script
+# requires-python = ">=3.14"
+# dependencies = [
+#     "marimo>=0.25.2",
+#     "numpy>=2.5.5",
+# ]
+# ///
+
+import marimo
+
+__generated_with = "0.25.2"
+app = marimo.App(width="medium")
+
+
+@app.cell
+def _():
+    import marimo as mo
+    import numpy as np
+
+    return mo, np
+
+
+@app.cell(hide_code=True)
+def _(mo):
+    mo.md(r"""
+    # LoRA Proof
+
+    The cell below is modified from Listing 8.11 in Nicole Koenigstein's book *Transformers in Action*, Manning, 2025.
+    """)
+    return
+
+
+@app.cell
+def _(np, rank_slider):
+    def lora_decomposition(W, r):
+        np.random.seed(42)
+        B = np.zeros((W.shape[0], r))
+        A = np.random.normal(0, 1, (r, W.shape[1]))
+
+        U, S, Vt = np.linalg.svd(W, full_matrices=False)
+        B[:, :r] = U[:, :r] * np.sqrt(S[:r])
+        A[:r, :] = np.sqrt(S[:r])[:, np.newaxis] * Vt[:r, :]
+
+        W_approx = B @ A
+
+        return B, A, W_approx
+
+    d = 6
+    rng = np.random.default_rng(42)
+    W = rng.integers(0, 10, size=(d, d))
+
+    r = rank_slider.value
+
+    B, A, W_approx = lora_decomposition(W, r)
+    return A, B, W, W_approx
+
+
+@app.cell
+def _(mo):
+    rank_slider = mo.ui.slider(start=1, stop=6, label="Rank", value=5)
+    rank_slider
+    return (rank_slider,)
+
+
+@app.cell(hide_code=True)
+def _(A, B, W, W_approx, mo):
+    common_args = {"precision": 3, "disabled": True}
+
+    _B = mo.ui.matrix(B, label="$B$", **common_args)
+    _A = mo.ui.matrix(A, label="$A$", **common_args)
+    _W = mo.ui.matrix(W, label="$W$", **common_args) 
+    _W2 = mo.ui.matrix(W_approx, label=r"$\hat{W}$", **common_args)
+
+    mo.hstack(
+        [
+            mo.vstack([_B, _A]),
+            mo.vstack([_W, _W2]),
+        ]
+    )
+    return
+
+
+if __name__ == "__main__":
+    app.run()
+```
+
+Luo tiedosto koneellesi ja aja se komennolla:
+
+``` bash
+uvx marimo edit --sandbox lora_proof.py
+```
+
+Säädä rank-liukusäädintä sallittujen arvojen (1-6) välillä ja tarkkaile, kuinka matriisi $\hat{W}$ lähestyy alkuperäistä matriisia $W$. Pohdi samalla:
+
+- Miten approksimaatio muuttuu, kun rank-arvo kasvaa?
+- Millä rankin arvolla $hat{W}$ vastaa alkuperäistä matriisia $W$ täydellisesti (pois lukien pyöristysvirheet)?
+- Miten tämä liittyy _Johdatus koneoppimiseen_ -kurssilta tuttuun dimensiovähennykseen?
+
+Tässä demonstraatiossa matalan rankin matriisit muodostetaan SVD:n avulla. Varsinaisessa LoRA-menetelmässä matriisit $A$ ja $B$ koulutetaan gradienttien avulla. LoRA käyttää niiden tuloa painomatriisin päivityksen esittämiseen.
+
+$$
+W' = W + \Delta W, \qquad \Delta W = BA
+$$
+
+### 2: Coming soon
+
+TODO.
 
 ## Videolla esitettävä
 
