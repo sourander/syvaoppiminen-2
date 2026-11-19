@@ -126,7 +126,7 @@ uvx marimo edit --sandbox lora_proof.py
 Säädä rank-liukusäädintä sallittujen arvojen (1-6) välillä ja tarkkaile, kuinka matriisi $\hat{W}$ lähestyy alkuperäistä matriisia $W$. Pohdi samalla:
 
 - Miten approksimaatio muuttuu, kun rank-arvo kasvaa?
-- Millä rankin arvolla $hat{W}$ vastaa alkuperäistä matriisia $W$ täydellisesti (pois lukien pyöristysvirheet)?
+- Millä rankin arvolla $\hat{W}$ vastaa alkuperäistä matriisia $W$ täydellisesti (pois lukien pyöristysvirheet)?
 - Miten tämä liittyy _Johdatus koneoppimiseen_ -kurssilta tuttuun dimensiovähennykseen?
 
 Tässä demonstraatiossa matalan rankin matriisit muodostetaan SVD:n avulla. Varsinaisessa LoRA-menetelmässä matriisit $A$ ja $B$ koulutetaan gradienttien avulla. LoRA käyttää niiden tuloa painomatriisin päivityksen esittämiseen.
