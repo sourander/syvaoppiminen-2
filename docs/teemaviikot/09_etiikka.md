@@ -6,7 +6,7 @@
 
 ## Materiaali
 
-Tällä teemaviikolla tarkastellaan tekoälyä teknisen järjestelmän lisäksi yhteiskunnallisena ilmiönä. Painopiste on erityisesti suurissa kielimalleissa, generatiivisessa tekoälyssä, tutkimuskäytön luotettavuudessa, regulaatiossa, datassa, immateriaalioikeuksissa, ympäristövaikutuksissa ja ihmisen roolissa tekoälyjärjestelmän käyttäjänä. Et tutustu näihin kaikkiin syvällisesti, vaan valitset sinulle läheisimmän tai mielestäsi tärkeimmän näkökulman, johon perehdyt tarkemmin. 
+Tällä teemaviikolla tarkastellaan tekoälyä teknisen järjestelmän lisäksi yhteiskunnallisena ilmiönä. Painopiste on erityisesti suurissa kielimalleissa, generatiivisessa tekoälyssä, tutkimuskäytön luotettavuudessa, regulaatiossa, datassa, immateriaalioikeuksissa, ympäristövaikutuksissa ja ihmisen roolissa tekoälyjärjestelmän käyttäjänä. Et tutustu näihin kaikkiin syvällisesti, vaan valitset sinulle läheisimmän tai mielestäsi tärkeimmän näkökulman, johon perehdyt tarkemmin.
 
 Tavoitteena ei ole muodostaa yhtä “oikeaa” mielipidettä tekoälystä, vaan oppia tunnistamaan riskejä ja arvioimaan tekoälyjärjestelmän käyttöä vastuullisesti.
 
@@ -14,7 +14,7 @@ Tavoitteena ei ole muodostaa yhtä “oikeaa” mielipidettä tekoälystä, vaan
 
 LLM-malleja vertaillaan usein benchmark-tuloksilla, mutta pelkkä pistemäärä voi antaa virheellisen kuvan mallien todellisesta käyttäytymisestä. Erityisesti tutkimuskäytössä mallivalinta, promptit ja annotointiprosessi voivat vaikuttaa lopputuloksiin. Kuinka malliin voidaan luottaa? Onko tekoäly uhka tieteelle? Entä uutisille?
 
-- Yang & Wang: *Benchmark Illusion: Disagreement among LLMs and Its Scientific Consequences*  
+- Yang & Wang: _Benchmark Illusion: Disagreement among LLMs and Its Scientific Consequences_  
   https://arxiv.org/abs/2602.11898
 
 - Stanford HAI: AI Index 2026  
@@ -30,13 +30,13 @@ LLM-malleja vertaillaan usein benchmark-tuloksilla, mutta pelkkä pistemäärä 
 
 Tekoälytyökalut voivat tukea oppimista, mutta ne voivat myös vähentää käyttäjän omaa ajattelua, ongelmanratkaisua ja lähdekritiikkiä, jos niitä käytetään passiivisesti – vai kuinka on? Ota selvää.
 
-- Gerlich, M. (2025): *AI Tools in Society: Impacts on Cognitive Offloading and the Future of Critical Thinking*  
+- Gerlich, M. (2025): _AI Tools in Society: Impacts on Cognitive Offloading and the Future of Critical Thinking_  
   https://doi.org/10.3390/soc15010006
 
-- Microsoft Research: *The Impact of Generative AI on Critical Thinking*  
+- Microsoft Research: _The Impact of Generative AI on Critical Thinking_  
   https://www.microsoft.com/en-us/research/publication/the-impact-of-generative-ai-on-critical-thinking/
 
-- UNESCO: *Guidance for generative AI in education and research*  
+- UNESCO: _Guidance for generative AI in education and research_  
   https://www.unesco.org/en/articles/guidance-generative-ai-education-and-research
 
 - Kosmyna et al 2025: Your brain on ChatGPT  
@@ -65,7 +65,7 @@ Euroopan unionin AI Act tuo tekoälyjärjestelmille riskiperustaisen sääntelym
 
 Mallin laatu ja oikeudenmukaisuus riippuvat vahvasti datasta. Koulutusdata voi sisältää historiallisia vinoumia, puutteellista edustavuutta, virheellisiä annotaatioita, henkilötietoja tai tekijänoikeudellisesti epäselvää materiaalia.
 
-- NIST Schwartz et al. 2022: *Towards a Standard for Identifying and Managing Bias in Artificial Intelligence*  
+- NIST Schwartz et al. 2022: _Towards a Standard for Identifying and Managing Bias in Artificial Intelligence_  
   https://www.nist.gov/publications/towards-standard-identifying-and-managing-bias-artificial-intelligence
 
 - Hugging Face: Model Cards  
@@ -142,31 +142,30 @@ Kun tekoälyjärjestelmä tekee päätöksiä tai toimii osana kriittistä järj
 - Bill Gates: The turbulent AI era is here. The choices we make now are critical.  
   https://www.gatesnotes.com/a-turbulent-ai-era-and-critical-choices-to-make
 
-
 ## Tehtävä
 
 Tekoälyn käyttö on tuonut monia uusia eettisiä ongelmia ohjelmointiin ja tuotesuunnitteluun. Esim. kenen vika on, jos autonomisesti kulkeva ajoneuvo ajaa kolarin ja ihminen loukkaantuu. Ohjeet:
 
-* Tutustu yllä olevaan materiaaliin vähintään pintapuoleisesti.
-* Tutustu valitsemaasi aihealueeseen syvällisemmin. Etsi myös muita lähteitä kuin yllämainitut.
-* Tee ja palauta essee: Tekoäly ja etiikka.
+- Tutustu yllä olevaan materiaaliin vähintään pintapuoleisesti.
+- Tutustu valitsemaasi aihealueeseen syvällisemmin. Etsi myös muita lähteitä kuin yllämainitut.
+- Tee ja palauta essee: Tekoäly ja etiikka.
 
 Vaatimuksia ovat:
 
-* Esseen tulee olla kirjoitettu suomeksi.
-* Essee on yksittäinen PDF-tiedosto.
-* Esseen tulee olla vähintään 500 sanaa leipätekstinä mitattuna.
-* Esseen tulee käsitellä tekoälyn etiikkaa ja sen vaikutuksia yhteiskuntaan.
-* Esseen tulee sisältää vähintään kolme eri lähdettä.
-    * Käytä Vancouver-lähdeviittausta.
-    * Lähteiden tulee olla luotettavia ja relevantteja aiheeseen liittyen.
-    * Vähintään yhden lähteen tulee olla tieteellinen artikkeli, joka on vertaisarvioitu tai vähintään julkaistu luotettavassa julkaisussa.
-    * Vähintään yhden lähteen tulee julkaistu vuoden sisällä. Se voi olla esimerkiksi uutisartikkeli tai blogikirjoitus.
+-   Esseen tulee olla kirjoitettu suomeksi.
+-   Essee on yksittäinen PDF-tiedosto.
+-   Esseen tulee olla vähintään 500 sanaa leipätekstinä mitattuna.
+-   Esseen tulee käsitellä tekoälyn etiikkaa ja sen vaikutuksia yhteiskuntaan.
+-   Esseen tulee sisältää vähintään kolme eri lähdettä.
+    - Käytä Vancouver-lähdeviittausta.
+    - Lähteiden tulee olla luotettavia ja relevantteja aiheeseen liittyen.
+    - Vähintään yhden lähteen tulee olla tieteellinen artikkeli, joka on vertaisarvioitu tai vähintään julkaistu luotettavassa julkaisussa.
+    - Vähintään yhden lähteen tulee olla julkaistu vuoden sisällä. Se voi olla esimerkiksi uutisartikkeli tai blogikirjoitus.
 
 Työn saa kirjoittaa valitsemallaan työkalulla. Suosittelen tutustumaan [Typst](https://typst.app/) -työkaluun. Saat tyylikkään, Arxiv-henkisen ulkonäön käyttämällä Typst Universesta [arkeion](https://typst.app/universe/package/arkheion/) -templaattia. Opettaja voi esitellä Typst:n käytön tukisessioissa.
 
 !!! tip "Lisävinkki työnhakuun"
 
-    Typst:llä on helppo kehittää CV ja eri työnantajille räätälöidyt saatekirjeet (engl. cover letter), ja niiden ylläpitäminen privaatissa Github-repositoriossa on yllättävän oiva tapa säilöä CV:t. 
-    
+    Typst:llä on helppo kehittää CV ja eri työnantajille räätälöidyt saatekirjeet (engl. cover letter), ja niiden ylläpitäminen privaatissa Github-repositoriossa on yllättävän oiva tapa säilöä CV:t.
+
     Tähän käyttötarkoitukseen löytyy useita valmiita templaatteja, kuten [basic-resume](https://typst.app/universe/package/basic-resume/) tai [modern-cv](https://typst.app/universe/package/modern-cv), joista ainakin jälkimmäinen vaatii fonttien asentamista käyttöjärjestelmään. Sen saa kuitenkin käyttöön vartissa.

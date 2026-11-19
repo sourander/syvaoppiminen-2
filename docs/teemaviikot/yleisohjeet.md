@@ -2,7 +2,7 @@
 
 ## Essee
 
-Kurssilla on yksi ainut essee-tehtävä, eli Tekoäly ja etiikka, palautetaan Reppuun PDF-tiedostona. Essee on kirjoitettava suomeksi. Lue tarkemmat ohjeet tehtävän [9: Tekoäly ja etiikka](09_etiikka.md) -dokumentista. Tehtävä arvioidaan Hyväksytty/Hylätty -arvosanoin, ja se on pakollinen kurssin suorittamisen kannalta, kuten kaikki muutkin tehtävät.
+Kurssin ainut essee-tehtävä, eli Tekoäly ja etiikka, palautetaan Reppuun PDF-tiedostona. Essee on kirjoitettava suomeksi. Lue tarkemmat ohjeet tehtävän [9: Tekoäly ja etiikka](09_etiikka.md) -dokumentista. Tehtävä arvioidaan Hyväksytty/Hylätty -arvosanoin, ja se on pakollinen kurssin suorittamisen kannalta, kuten kaikki muutkin tehtävät.
 
 ## Repositorio
 
@@ -32,14 +32,14 @@ Tarkka repositorion rakenne on sinun päätettävissä. Varmista kuitenkin, ett�
 !!! example "Kurssi syntyy prosessissa"
 
     Tämä toteutus järjestetään ensimmäistä kertaa syksyllä 2026, joten ns. opettajan esimerkki repositorion rakenteesta elää toteutuksen ajan. Opettajalla ei ole kristallipalloa, jolla näkisi Roihun tulevaisuuteen.
-    
+
     Seuraa Discordia ja sähköpostia, niin pysyt ajan tasalla mahdollisista vinkeistä.
 
 !!! tip "CLI-työskentely"
 
     Kun ajat harjoituksia, siirry kyseiseen hakemistoon, ja aja komennot siellä. Esimerkiksi jos tutustut opettajan tekemään Flower Model -aihioon, niin:
 
-    ```bash
+    ``` bash
     git clone https://gitlab.dclabra.fi/jani-public/flower-model-demo.git
     cd flower-model-demo
     uv run python

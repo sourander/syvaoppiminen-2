@@ -480,6 +480,8 @@ sacct -j <jobid> --long
 
 Kokonaisuutena videosta tulee ilmetä, että ymmärrät prosessi- ja säietason rinnakkaisuuden sekä syväoppimisen GPU-rinnakkaistamisstrategioiden peruskäsitteet, ja osaat suorittaa ja tulkita monen prosessin, säikeen ja GPU:n eräajoja Roihussa. Tulevaisuuden projekteissa tiedät, että resurssien varaaminen ilman rinnakkaistamista on turhaa yhteisten resurssien haaskausta.
 
+## Lähteet
+
 [^viehmannDLwithPytorch]: Viehmann, T. _Deep Learning with PyTorch 2nd edition_. Manning. 2026.
 [^huyenAIEngineering]: Huyen, C. _AI Engineering_. O'Reilly. 2024.
 [^freglyAISystems]: Fregly, C. _AI Systems Performance Engineering_. O'Reilly. 2025.

@@ -1,9 +1,5 @@
 # Tervetuloa kurssille
 
-!!! warning
-
-    Tämä materiaali on kehitteillä. Uusi toteutus käynnistyy syksyllä 2026.
-
 Oppimateriaali on tarkoitettu Kajaanin Ammattikorkeakoulun kolmannen vuoden IT-alan opiskelijoille. Kurssin edeltyvyysehtona on Syväoppiminen I -kurssin läpäisy.
 
 ## Arviointi
@@ -12,10 +8,10 @@ Kurssi koostuu teemaviikoista, joissa kussakin voi olla yksi tai enemmän tehtä
 
 Alla listamuodossa huomioitavia asioita:
 
-* Kurssin kaikki tehtävät ovat pakollisia.
-* Myöhässä palautetun tehtävän arvosana laskee siten, että se rajoitetaan maksimiin, joka on...
-    * Palautus samana lukukautena: 3
-    * Palautus seuraavan lukukauden puolella: 1
+-   Kurssin kaikki tehtävät ovat pakollisia.
+-   Myöhässä palautetun tehtävän arvosana laskee siten, että se rajoitetaan maksimiin, joka on...
+    - Palautus samana lukukautena: 3
+    - Palautus seuraavan lukukauden puolella: 1
 
 ## Teemaviikot
 
