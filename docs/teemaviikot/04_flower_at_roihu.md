@@ -29,7 +29,7 @@ Opetusmateriaalia ovat:
 
 Tällä viikolla syntyy tiedostoja, joiden ei kuulu päätyä Gitiin: salaisuuksia sisältävä `.env` sekä Roihun ajojen sivutuotteet. Lisää `flower-model-demo/.gitignore`-tiedostoon seuraavat rivit:
 
-```title="flower-model-demo/.gitignore"
+``` title="flower-model-demo/.gitignore"
 # Secrets and Roihu run artifacts
 .env
 mlruns/
@@ -40,7 +40,7 @@ slurm-*.out
 
 Roihun polut ja muut asetukset kannattaa kerätä yhteen tiedostoon, joka ladataan automaattisesti jokaisen kirjautumisen yhteydessä. Kirjaudu Roihuun ja luo kotihakemistoosi tiedosto `~/.syvaoppiminen2_env` esimerkiksi `nano`- tai `vim`-editorilla. Aseta sisällöksi:
 
-```bash title="~/.syvaoppiminen2_env"
+``` bash title="~/.syvaoppiminen2_env"
 export DL2_PROJ=/projappl/project_XXXXXXX
 export DL2_SCRATCH=/scratch/project_XXXXXXX
 export DL2_DATASET=/dataset/project_2021217
@@ -50,14 +50,14 @@ Huomaa, että `DL2_DATASET` on kaikille sama, koska datasetti on jaettu kurssin 
 
 Lisää seuraavaksi `.bashrc`-tiedostoon rivi, joka lataa yllä olevan tiedoston. Alla oleva komento lisää rivin vain, jos sitä ei vielä ole, joten sen voi ajaa turvallisesti useamman kerran:
 
-```bash title="CSC Roihu"
+``` bash title="CSC Roihu"
 grep -qF '.syvaoppiminen2_env' ~/.bashrc || echo '[ -f ~/.syvaoppiminen2_env ] && source ~/.syvaoppiminen2_env' >> ~/.bashrc
 source ~/.bashrc
 ```
 
 Tarkista, että muuttujat ovat käytössä:
 
-```bash title="CSC Roihu"
+``` bash title="CSC Roihu"
 echo "$DL2_PROJ"
 echo "$DL2_SCRATCH"
 echo "$DL2_DATASET"
@@ -84,7 +84,7 @@ Kopioi token heti talteen, sillä GitLab näyttää sen vain kerran. Jos token p
 
 Lisää tokenin tiedot Roihussa `~/.syvaoppiminen2_env`-tiedoston loppuun:
 
-```bash title="~/.syvaoppiminen2_env"
+``` bash title="~/.syvaoppiminen2_env"
 export GITLAB_HOST=gitlab.dclabra.fi
 export GITLAB_PATH=syvaoppiminen-2-2026/<nimi>
 export GITLAB_TOKEN=glpat-xxxxxxxxxxxxxxxxxxxx
@@ -92,7 +92,7 @@ export GITLAB_TOKEN=glpat-xxxxxxxxxxxxxxxxxxxx
 
 Lataa tiedosto uudelleen:
 
-```bash title="CSC Roihu"
+``` bash title="CSC Roihu"
 source ~/.syvaoppiminen2_env
 ```
 
@@ -100,7 +100,7 @@ source ~/.syvaoppiminen2_env
 
 Koodi ja skriptit kuuluvat projektin `projappl`-levyalueelle. Kloonaa repositoriosi viikkokohtaiseen hakemistoon:
 
-```bash title="CSC Roihu"
+``` bash title="CSC Roihu"
 cd $DL2_PROJ
 
 git clone "https://oauth2:${GITLAB_TOKEN}@${GITLAB_HOST}/${GITLAB_PATH}.git" flower-at-roihu
@@ -110,7 +110,7 @@ Flower Model löytyy nyt hakemistosta `$DL2_PROJ/04_flower_at_roihu/<nimi>/flowe
 
 Jatkossa päivittäinen työnkulku on seuraava:
 
-```bash
+``` bash
 # Oma kone: muokkaa, commitoi, puske
 cd ~/Code/syvaoppiminen-2-2026/<nimi>
 git add .
@@ -132,14 +132,14 @@ Roihun verkkokäyttöliittymä osoitteessa <https://www.roihu.csc.fi> tarjoaa us
 
 Tärkeää on ymmärtää, että tämä MLflow on ainoastaan **käyttöliittymä**, ei tracking-palvelin. Koulutusskripti ei ota siihen yhteyttä verkon yli, kuten viikolla 1 kontissa pyörivään MLflow:iin. Sen sijaan koulutustyö kirjoittaa MLflow-datan suoraan SQLite-tietokantaan projektin `/scratch`-levyalueelle, ja käyttöliittymä lukee samaa tiedostoa. MLflow-sovelluksen ei siis tarvitse olla käynnissä koulutuksen aikana.
 
-1. Kirjaudu osoitteeseen <https://www.roihu.csc.fi> (MFA vaaditaan).
-2. Valitse **Apps > MLflow**.
-3. Täytä käynnistyslomake:
+1.  Kirjaudu osoitteeseen <https://www.roihu.csc.fi> (MFA vaaditaan).
+2.  Valitse **Apps > MLflow**.
+3.  Täytä käynnistyslomake:
     - Oletusarvot ovat pääosin kunnossa.
     - Valitse moduuliksi `python-pytorch/2.13`, jotta MLflow-versio on sama kuin koulutustyössä. Muuten tietokannan skeeman versiot voivat olla ristiriidassa.
     - Aseta MLflow-tiedostojen sijainniksi `sqlite:////scratch/project_XXXXXXX/mlflow/mlruns.db`.
-4. Rastita **Save settings** ja anna asetuksille nimi, esimerkiksi `flowermodel`. Seuraavalla kerralla lomaketta ei tarvitse täyttää uudestaan.
-5. Paina **Launch**. Odota hetki, ennen kuin painat **Connect to MLflow**, koska sovelluksen käynnistyminen kestää jonkin aikaa.
+4.  Rastita **Save settings** ja anna asetuksille nimi, esimerkiksi `flowermodel`. Seuraavalla kerralla lomaketta ei tarvitse täyttää uudestaan.
+5.  Paina **Launch**. Odota hetki, ennen kuin painat **Connect to MLflow**, koska sovelluksen käynnistyminen kestää jonkin aikaa.
 
 Tietokantaa ei ole vielä olemassa, joten näkymä on tyhjä. Tämä muuttuu vaiheessa 8. Sulje sessio, kun et enää tarvitse sitä, jotta se ei turhaan varaa resursseja.
 
@@ -151,17 +151,17 @@ Tietokantaa ei ole vielä olemassa, joten näkymä on tyhjä. Tämä muuttuu vai
 
 Skriptissä `scripts/prepare_flower_photos.py` arkiston polku ja kohdehakemisto ovat kovakoodattuja:
 
-```python
+``` python
 TAR_FILE = Path("gitlfs-store/flower_photos.tgz")
 OUT_DIR = Path("data/flower_photos")
 ```
 
 Roihussa arkisto luetaan Roihu Datasetistä, ja purettu datasetti kirjoitetaan työn aikaiseen `$TMPDIR`-hakemistoon. Muokkaa skriptiä siten, että se ottaa vastaan kaksi komentoriviargumenttia:
 
-| Argumentti | Oletusarvo                       | Tarkoitus                                     |
-| ---------- | -------------------------------- | --------------------------------------------- |
-| `--tar`    | `gitlfs-store/flower_photos.tgz` | Polku `flower_photos.tgz`-arkistoon           |
-| `--out`    | `data/flower_photos`             | Kohdehakemisto jaetulle (split) datasetille   |
+| Argumentti | Oletusarvo                       | Tarkoitus                                   |
+| ---------- | -------------------------------- | ------------------------------------------- |
+| `--tar`    | `gitlfs-store/flower_photos.tgz` | Polku `flower_photos.tgz`-arkistoon         |
+| `--out`    | `data/flower_photos`             | Kohdehakemisto jaetulle (split) datasetille |
 
 Oletusarvojen ansiosta paikallinen käyttö (`uv run python scripts/prepare_flower_photos.py`) toimii täsmälleen kuten ennenkin. Varmista tämä myös kokeilemalla. Pythonin standardikirjaston `argparse`-moduuli riittää tähän.
 
@@ -173,28 +173,25 @@ Oletusarvojen ansiosta paikallinen käyttö (`uv run python scripts/prepare_flow
 
 Kirjoita uusi Slurm-työskripti `scripts/roihu_train_mobilenet.sh`, joka suorittaa koulutuksen Roihun GPU-solmulla. Kirjoitit vastaavan skriptin jo viikolla 3, joten sinulla tulisi olla tästä jo kokemusta.
 
-- Partitio on yhä `gputest`.
-- On suositeltavaa, mutta ei pakollista, että skripti tarkistaa seuraavien ympäristömuuttujen olevan asetettuja: `DL2_PROJ`, `DL2_SCRATCH` ja `DL2_DATASET`.
-- Ohjelmistoympäristöksi ladataan moduuli `python-pytorch/2.13`.
-- `flowermodel`-pakettia ei ole asennettu moduuliin. Voit käyttää riviä:
-
+-   Partitio on yhä `gputest`.
+-   On suositeltavaa, mutta ei pakollista, että skripti tarkistaa seuraavien ympäristömuuttujen olevan asetettuja: `DL2_PROJ`, `DL2_SCRATCH` ja `DL2_DATASET`.
+-   Ohjelmistoympäristöksi ladataan moduuli `python-pytorch/2.13`.
+-   `flowermodel`-pakettia ei ole asennettu moduuliin. Voit käyttää riviä:
 
     ```
     # Olettaen että CLONE on asetettu ja viittaa $SLURM_SUBMIT_DIR-hakemistoon:
     export PYTHONPATH="$CLONE/src${PYTHONPATH:+:$PYTHONPATH}"
     ```
 
-- Esikoulutetut painot ladataan verkosta. Ohjaa ne talteen `/scratch`-levyalueelle eikä kotihakemistoon. Vinkki: 
+-   Esikoulutetut painot ladataan verkosta. Ohjaa ne talteen `/scratch`-levyalueelle eikä kotihakemistoon. Vinkki:
 
     ```
     export TORCH_HOME=what-would-go-here
     ```
 
-
-
 Tarkitset siis Slurm-skriptin jotakuinkin seuraavan sisällön:
 
-```bash title="scripts/roihu_train_mobilenet.sh"
+``` bash title="scripts/roihu_train_mobilenet.sh"
 # Tähän SBATCH-parametrit.
 # ...
 
@@ -227,20 +224,20 @@ Paikallisessa `uv`-projektissa ja Roihun moduulissa voi olla eri versiot samoist
 
 Tallenna moduulin pakettiluettelo tiedostoon:
 
-```bash title="CSC Roihu"
+``` bash title="CSC Roihu"
 module load python-pytorch/2.13
 pip freeze > ~/pip-freeze-python-pytorch-213
 ```
 
 Etsi luettelosta (esim. `grep`-komennolla) niiden pakettien versiot, jotka ovat `pyproject.toml`-tiedostosi `dependencies`-listassa. Etsimisen voi hoitaa esimerkiksi seuraavalla tavalla:
 
-```bash title="CSC Roihu"
+``` bash title="CSC Roihu"
 grep -E 'mlflow|omegaconf|onnx|psutil|torch' ~/pip-freeze-python-pytorch-213 
 ```
 
 Kiinnitä ne paikallisesti:
 
-```bash title="Oma kone"
+``` bash title="Oma kone"
 uv add <paketti>==<versio>
 ```
 
@@ -250,7 +247,7 @@ Muista myös, että paikallinen MLflow-palvelin ajetaan kontissa (`containers/ml
 
 Puske muutokset omalta koneeltasi, päivitä klooni Roihussa ja lähetä työ jonoon:
 
-```bash title="CSC Roihu"
+``` bash title="CSC Roihu"
 cd $DL2_PROJ/04_flower_at_roihu/<nimi>
 git pull
 
@@ -270,7 +267,7 @@ Kun työ on valmis, tarkastele sitä viikolta 3 tutuilla komennoilla (`seff`, `s
 
     Kirjoitushetkellä `python-pytorch/2.13`-moduulissa on kaikki Flower Modelin tarvitsemat paketit, myös `omegaconf`. Jos ajo kuitenkin kaatuu puuttuvaan importiin, olet todennäköisesti aiemmissa tehtävissä lisännyt jonkin sinulle hyödyllisen paketin. Luo kerran kirjautumissolmulla virtuaaliympäristö, joka käyttää moduulin paketteja ja johon asennetaan vain puuttuvat:
 
-    ```bash title="CSC Roihu"
+    ``` bash title="CSC Roihu"
     module load python-pytorch/2.13
     cd $DL2_SCRATCH
 
@@ -287,7 +284,6 @@ Kun työ on valmis, tarkastele sitä viikolta 3 tutuilla komennoilla (`seff`, `s
 
     Tällöin Slurm-skriptissä aktivoidaan `module load` -rivin jälkeen myös tämä ympäristö. Älä tee tätä, ellei se ole tarpeen.
 
-
 ### 10. FirecREST-kaninkolo
 
 !!! tip
@@ -295,7 +291,6 @@ Kun työ on valmis, tarkastele sitä viikolta 3 tutuilla komennoilla (`seff`, `s
     Tämä tehtävä on valinnainen, syventävä lisätehtävä, jolla on ainoastaan arvosanaa korottava vaikutus.
 
 ??? note "Klikkaa auki jos kiinnostaa"
-
 
     FirecREST on CSC:n REST-rajapinta Roihuun. Sen avulla voit lähettää Slurm-töitä, listata niitä ja lukea tiedostoja suoraan omalta koneeltasi ilman SSH-yhteyttä. Tutustu [CSC:n FirecREST-ohjeeseen](https://docs.csc.fi/computing/firecrest/) ja [rajapinnan dokumentaatioon](https://api.roihu.csc.fi/v1/docs/).
 
@@ -305,13 +300,13 @@ Kun työ on valmis, tarkastele sitä viikolta 3 tutuilla komennoilla (`seff`, `s
     2. Kopioi token. Se näytetään vain kerran ja on voimassa 24 tuntia.
     3. Kirjoita token omalla koneellasi tiedostoon `flower-model-demo/.env`, jonka lisäsit `.gitignore`-tiedostoon vaiheessa 1:
 
-    ```bash title="flower-model-demo/.env"
+    ``` bash title="flower-model-demo/.env"
     FIRECREST_PAT=...
     ```
 
     Testaa tokenia `curl`-komennolla. Tämä ei vaadi vielä `just`-työkalua:
 
-    ```bash title="Oma kone"
+    ``` bash title="Oma kone"
     source .env
     curl https://api.roihu.csc.fi/v1/compute/gpu/jobs -H "Authorization: Bearer ${FIRECREST_PAT}"
     ```
@@ -322,7 +317,7 @@ Kun työ on valmis, tarkastele sitä viikolta 3 tutuilla komennoilla (`seff`, `s
 
     ??? example "Justfile"
 
-        ```just title="flower-model-demo/Justfile"
+        ``` just title="flower-model-demo/Justfile"
         # ... old content here ...
 
         # The FireCREST recipes below are Python, executed with `uv run --script`
@@ -458,7 +453,7 @@ Kun työ on valmis, tarkastele sitä viikolta 3 tutuilla komennoilla (`seff`, `s
 
     Tyypillinen työnkulku on jatkossa:
 
-    ```bash title="Oma kone"
+    ``` bash title="Oma kone"
     cd ~/Code/syvaoppiminen-2-2026/<nimi>/flower-model-demo
     git add .
     git commit -m "..."
@@ -483,23 +478,23 @@ Onnistuiko koodi olemaan toistettava (1) samalla laitteistolla ja (2) millä tah
 
 ## Videolla esitettävä
 
-1. Selitä kokonaisuuden työnkulku: mihin GitLabia, Project Access Tokenia, Slurmia ja Roihun MLflow-sovellusta käytetään. Voit kertoa myös FirecRESTistä, jos tutustuit siihen.
+1.  Selitä kokonaisuuden työnkulku: mihin GitLabia, Project Access Tokenia, Slurmia ja Roihun MLflow-sovellusta käytetään. Voit kertoa myös FirecRESTistä, jos tutustuit siihen.
     - Perustele, miksi Project Access Tokenilla on vain lukuoikeus.
 
-2. Näytä Roihussa klooni `projappl`-levyalueella.
+2.  Näytä Roihussa klooni `projappl`-levyalueella.
     - Perustele, miksi koodi on `projappl`-alueella, MLflow-tietokanta ja mallit `/scratch`-alueella ja purettu datasetti `$TMPDIR`-hakemistossa.
 
-3. Esittele muutokset koodiin.
+3.  Esittele muutokset koodiin.
     - Näytä `prepare_flower_photos.py`-skriptin uudet argumentit. Selitä, mitä muutit.
     - Esittele `roihu_train.sh`. Kuvaile sen vaiheet.
 
-4. Lähetä työ käsin `sbatch`-komennolla ja tarkastele valmistunutta työtä `seff`-komennolla.
-5. Näytä jonkin `slurm-<jobid>.out`-tiedoston sisältö.
+4.  Lähetä työ käsin `sbatch`-komennolla ja tarkastele valmistunutta työtä `seff`-komennolla.
+5.  Näytä jonkin `slurm-<jobid>.out`-tiedoston sisältö.
 
-6. Näytä ajo Roihun MLflow-sovelluksessa: parametrit, metriikat (erityisesti F1) ja artefaktit.
+6.  Näytä ajo Roihun MLflow-sovelluksessa: parametrit, metriikat (erityisesti F1) ja artefaktit.
 
-7. Näytä `pyproject.toml`-tiedostosta kiinnitetyt versiot ja kerro, miten päädyit niihin.
+7.  Näytä `pyproject.toml`-tiedostosta kiinnitetyt versiot ja kerro, miten päädyit niihin.
 
-8. Esittele toistettavuuskokeen tulokset ja pohdi, mistä mahdolliset erot johtuvat.
+8.  Esittele toistettavuuskokeen tulokset ja pohdi, mistä mahdolliset erot johtuvat.
 
-Kokonaisuutena videosta tulee ilmetä, että osaat ajaa olemassa olevan koulutusprojektin supertietokoneella ilman, että koodi tai konfiguraatio haarautuu paikallisesta versiosta. Ymmärrät, miten koodi kulkee GitLabin kautta Roihuun, miten Slurm-työ käyttää eri levyalueita tarkoituksenmukaisesti ja miten koulutustulokset tallentuvat MLflow:iin. Osaat lisäksi käynnistää ja seurata koulutusta omalta koneeltasi FirecREST-rajapinnan kautta sekä huolehtia siitä, etteivät salaisuudet päädy versionhallintaan.
+Kokonaisuutena videosta tulee ilmetä, että osaat ajaa olemassa olevan koulutusprojektin supertietokoneella ilman, että koodi tai konfiguraatio haarautuu paikallisesta versiosta. Ymmärrät, miten koodi kulkee GitLabin kautta Roihuun, miten Slurm-työ käyttää eri levyalueita tarkoituksenmukaisesti ja miten koulutustulokset tallentuvat MLflow:iin. Mahdollisesti osaat lisäksi käynnistää ja seurata koulutusta omalta koneeltasi FirecREST-rajapinnan kautta. Huolehdit siitä, etteivät salaisuudet päädy versionhallintaan.
